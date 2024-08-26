@@ -1,0 +1,194 @@
+---
+title: "Torch Try"
+author: "Zehao Qian"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# --------------------------------------------------------
+# clear the environment var area
+rm(list = ls())
+# clear all plots
+graphics.off()
+# clear the console area
+cat("\014")
+```
+
+```{r}
+# --------------------------------------------------------
+# read sav file
+library(haven)
+data.origin = read_sav('./Data.sav')
+
+# --------------------------------------------------------
+#Delete missing values in target rows
+library(dplyr)
+
+data_clean <- data.origin %>% filter(!is.na(experienced_fistula))
+
+# --------------------------------------------------------
+#See the missing value
+library(naniar)
+gg_miss_var(data_clean)
+
+# --------------------------------------------------------
+# 选择特定变量
+selected_columns <- c(
+  "experienced_fistula",
+  "education",
+  "distance",
+  "age_sex",
+  "wealth",
+  "V005",
+  "residence",
+  "occupation",
+  "number_birth",
+  "delivery_category",
+  "contraception_use",
+  "age",
+  "religion"
+)
+
+# 创建一个包含这些变量的新数据框
+data_selected <- data_clean[, selected_columns]
+
+# 删除包含缺失值的行
+data1 <- na.omit(data_selected)
+
+# 查看数据集的前六行
+head(data1)
+
+# 查看数据集的结构
+str(data1)
+
+# --------------------------------------------------------
+library(caret)
+
+# 确保 experienced_fistula 是因子变量
+data1$experienced_fistula <- as.factor(data1$experienced_fistula)
+
+# 检查转换是否成功
+str(data1$experienced_fistula)
+
+# 使用 caret 包中的 downSample 函数进行下采样
+set.seed(123)  # 设置随机种子以保证结果可重复
+data_downsampled <-
+  downSample(
+    x = data1 %>% select(-experienced_fistula),
+    y = data1$experienced_fistula,
+    yname = "experienced_fistula"
+  )
+
+# 确保权重列在合适的范围内（例如，缩放到 [0, 1] 范围内）
+data_downsampled$V005 <- (data_downsampled$V005 - min(data_downsampled$V005)) / (max(data_downsampled$V005) - min(data_downsampled$V005))
+
+# 查看下采样后数据集的结构
+str(data_downsampled)
+
+# 查看 experienced_fistula 的分布
+table(data_downsampled$experienced_fistula)
+
+data_downsampled$experienced_fistula = as.numeric(data_downsampled$experienced_fistula) - 1
+
+```
+
+```{r}
+data.new = data_downsampled
+library(caret)
+preProcValues <- preProcess(
+  data.new[,-13],
+  method = c("center", "scale"))
+data.normalized <- predict(preProcValues, data.new)
+remove(preProcValues)
+```
+
+separate data set
+
+```{r}
+library(caret)
+# 拆分数据集
+set.seed(42)
+trainIndex <-
+  sample(seq_len(nrow(data.normalized)),
+         size = 0.7 * nrow(data.normalized))
+trainData <- data.normalized[trainIndex,]
+testData  <- data.normalized[-trainIndex,]
+```
+
+```{r}
+library(torch)
+
+train_x <- torch_tensor(as.matrix(trainData[, -which(names(trainData) == "experienced_fistula")]))
+train_y <- torch_tensor(as.matrix(trainData[, which(names(trainData) == "experienced_fistula")]))
+test_x <- torch_tensor(as.matrix(testData[, -which(names(testData) == "experienced_fistula")]))
+test_y <- torch_tensor(as.matrix(testData[, which(names(testData) == "experienced_fistula")]))
+
+# 定义一个简单的神经网络模型
+model <- nn_module(
+  initialize = function() {
+    self$fc1 <- nn_linear(ncol(train_x), 20)
+    self$fc2 <- nn_linear(20, 10)
+    self$fc3 <- nn_linear(10, 1)
+  },
+  forward = function(x) {
+    x <- torch_relu(self$fc1(x))
+    x <- torch_relu(self$fc2(x))
+    x <- torch_sigmoid(self$fc3(x))
+    x
+  }
+)
+
+# 实例化模型
+net <- model()
+
+# 定义损失函数和优化器
+criterion <- nn_bce_loss()
+optimizer <- optim_sgd(net$parameters, lr = 0.01)
+
+# 训练模型
+num_epochs <- 1000
+for (epoch in 1:num_epochs) {
+  net$train()
+  optimizer$zero_grad()
+  output <- net(train_x)
+  loss <- criterion(output, train_y)
+  loss$backward()
+  optimizer$step()
+  
+  if (epoch %% 10 == 0) {
+    cat("Epoch:", epoch, "Loss:", loss$item(), "\n")
+  }
+}
+
+# 模型评估
+net$eval()
+with_no_grad({
+  predictions <- net(test_x)
+})
+
+predictions <- ifelse(predictions > 0.5, 1, 0)
+
+```
+
+```{r}
+library(e1071)
+# 将预测和真实值转换为向量
+# 将预测和真实值转换为向量
+predictions <- as.integer(predictions)
+test_y <- as.integer(test_y)
+
+# 生成混淆矩阵
+conf_matrix <- confusionMatrix(factor(predictions), factor(test_y))
+
+# 打印混淆矩阵
+print(conf_matrix)
+```
+
+```{r}
+
+```
