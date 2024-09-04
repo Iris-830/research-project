@@ -1,0 +1,364 @@
+```{r}
+# --------------------------------------------------------
+# clear the environment var area
+rm(list = ls())
+# clear all plots
+graphics.off()
+# clear the console area
+cat("\014")
+```
+
+
+```{r}
+# --------------------------------------------------------
+library(haven)
+library(dplyr)
+library(survey)
+library(ggplot2)
+library(car)
+
+# read sav file
+data.origin = read_sav('/Users/qimiao/Desktop/7.28/Data.sav')
+
+# --------------------------------------------------------
+# Delete missing values in target rows
+
+data_clean <- data.origin %>% filter(!is.na(experienced_fistula))
+
+# --------------------------------------------------------
+# Cross-analysis using xtabs
+cross_tab <- xtabs(~ country + experienced_fistula, data = data_clean)
+print(cross_tab)
+
+# If fewer than 50 people answered "Yes" to experienced_fistula for a particular country, the data may not be statistically representative and may not provide enough information for reliable analysis.
+# Therefore, removing these countries.
+
+# Removing BurkinaFaso, Gambia and Niger
+data_clean <- data_clean %>%
+  filter(!(country %in% c("BurkinaFaso", "Gambia", "Niger")))
+
+# --------------------------------------------------------
+#See the missing value
+library(naniar)
+gg_miss_var(data_clean)
+
+# --------------------------------------------------------
+# Selecting specific variables
+selected_columns <- c(
+  "experienced_fistula",
+  "country",
+  "V005",
+  "age",
+  "distance",
+  "age_sex",
+  "number_birth",
+  "religion",
+  "residence",
+  "wealth",
+  "education",
+  "occupation",
+  "contraception_use",
+  "delivery_place",
+  "delivery_professional",
+  "postpartum_care"
+)
+
+# Create a new data frame
+data_selected <- data_clean[, selected_columns]
+
+# Delete rows with missing values
+data1 <- na.omit(data_selected)
+
+# View the dataset
+head(data1)
+
+# View the structure of the dataset
+str(data1)
+
+data1$religion <- factor(data1$religion)
+data1$wealth <- factor(data1$wealth)
+data1$education <- factor(data1$education)
+data1$occupation <- factor(data1$occupation)
+data1$residence <- factor(data1$residence)
+data1$contraception_use <- factor(data1$contraception_use)
+data1$delivery_place <- factor(data1$delivery_place)
+data1$delivery_professional <- factor(data1$delivery_professional)
+data1$postpartum_care <- factor(data1$postpartum_care)
+data1$age <- factor(data1$age)
+data1$age_sex <- factor(data1$age_sex)
+data1$distance <- factor(data1$distance)
+data1$number_birth <- factor(data1$number_birth)
+data1$experienced_fistula <- factor(data1$experienced_fistula)
+
+# Scaling Weights
+data1$V005_scaled <- data1$V005 / 1000000
+
+# Filter data for Cote d'lvoire
+country_data <- subset(data1, country == "Cote d'lvoire")# Design Factors
+
+# Design Factors
+svydesign_country <- svydesign(id = ~1, weights = ~V005_scaled, data = country_data)
+
+```
+
+
+```{r}
+# Calculate the frequency distribution of each variable
+summary_variables <- function(svydesign_country, variable) {
+  formula <- as.formula(paste("~", variable))
+  freq <- svytable(formula, svydesign_country)  
+  prop <- svymean(formula, svydesign_country, na.rm = TRUE)  
+  
+  # Convert to percentage
+  data.frame(
+    variable = variable,
+    category = names(freq),
+    frequency = as.vector(freq),
+    proportion = 100 * as.vector(prop)  
+  )
+}
+
+# Define a list of variables
+variables <- c("experienced_fistula", "age", "age_sex", "number_birth", "religion", 
+               "residence", "wealth", "education", "occupation", 
+               "contraception_use", "delivery_place", "distance",
+               "delivery_professional", "postpartum_care")
+
+summary_variables_list <- lapply(variables, function(var) {
+  summary_variables(svydesign_country, var)})
+
+summary_distribution <- bind_rows(summary_variables_list)
+
+print(summary_distribution)
+
+# write.csv(summary_distribution, "Cote_distribution.csv", row.names = FALSE)
+```
+
+```{r}
+# Visualize using a bar chart
+plot_categorical <- function(summary_distribution, variable_name) {
+  plot_data <- summary_distribution[summary_distribution$variable == variable_name, ]
+  
+  ggplot(plot_data, aes(x = category, y = proportion, fill = category)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes(label = sprintf("%.2f%%", proportion)), vjust = -0.5, size = 3) +  
+    labs(title = paste("Percentage of", variable_name), x = variable_name, y = "Percentage") +
+    scale_fill_brewer(palette = "Set1") +  
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))  
+}
+
+
+
+# Draw a bar chart
+lapply(variables, function(var) {
+  p <- plot_categorical(summary_distribution, var)
+})
+
+```
+
+```{r}
+# Calculate the prevalence of different variables under different categories
+# Define a list of variables (excluding experienced_fistula)
+variables <- c("age", "age_sex", "distance", "number_birth", "religion", "residence", 
+               "wealth", "education", "occupation", "contraception_use", 
+               "delivery_place", "delivery_professional", "postpartum_care")
+
+# Define a function
+calculate_prevalence <- function(svydesign_country, variable) {
+  svyby(~experienced_fistula, as.formula(paste("~", variable)), svydesign_country, svymean, na.rm = TRUE)
+}
+
+# Calculate the prevalence for each variable
+prevalence_list <- lapply(variables, function(var) calculate_prevalence(svydesign_country, var))
+names(prevalence_list) <- variables
+
+# Print the result
+for (var in names(prevalence_list)) {
+  print(prevalence_list[[var]])
+}
+
+# save as a CSV
+#for (var in names(prevalence_list)) {
+#  write.csv(prevalence_list[[var]], paste0(var, "_cote.csv"), row.names = FALSE)
+#}
+
+```
+
+```{r}
+# Generate a bar chart for each variable
+
+# Convert the result into a data frame
+for (var in names(prevalence_list)) {
+  df <- as.data.frame(prevalence_list[[var]])  
+  df$variable <- var  
+  
+  # Draw a bar chart
+  variable_bar <- ggplot(df, aes_string(x = var, y = "experienced_fistula1", fill = var)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes_string(label = "sprintf('%.2f%%', experienced_fistula1 * 100)"), 
+              vjust = -0.5, size = 3) +  
+    labs(x = var, y = "Prevalence of Fistula", title = paste("Prevalence of Fistula by", var, "in Cote d'Ivoire")) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+  print(variable_bar)
+}
+
+```
+
+```{r}
+# Bivariate Analysis
+# Variables that need bivariate analysis
+variables <- c("age", "age_sex", "distance", "number_birth", "religion", "residence", 
+               "wealth", "education", "occupation", "contraception_use", 
+               "delivery_place", "delivery_professional", "postpartum_care")
+
+# Define a function
+bivariate_analysis <- function(variable, svydesign_country) {
+  formula <- as.formula(paste("experienced_fistula ~", variable))
+  
+  # Regression analysis
+  glm_result <- svyglm(formula, design = svydesign_country, family = quasibinomial())
+  
+  # Chi-square test
+  chisq_result <- svychisq(as.formula(paste("~", variable, "+ experienced_fistula")), design = svydesign_country)
+  list(glm = summary(glm_result), chisq = chisq_result)
+}
+
+# Perform bivariate analysis on each variable
+bivariate_results <- lapply(variables, function(var) {
+  cat("\n--- Bivariate Analysis:", var, "---\n")
+  result <- bivariate_analysis(var, svydesign_country)
+  print(result$glm)
+  
+  cat("\nChi-Square Test (svychisq) Result:\n")
+  print(result$chisq)
+  
+  return(result)
+})
+```
+
+
+
+```{r}
+# Calculate VIF using glm model
+glm_country_simple <- glm(experienced_fistula ~ age + age_sex + distance + number_birth +
+                           religion + residence + wealth + education + occupation + 
+                           contraception_use + delivery_place + delivery_professional +
+                           postpartum_care,
+                         data = country_data, 
+                         family = quasibinomial())
+
+vif_values <- vif(glm_country_simple)
+print(vif_values)
+```
+
+
+```{r}
+# Multivariate regression analysis
+glm_country <- svyglm(experienced_fistula ~ age + age_sex + distance + number_birth +
+                         religion + residence + wealth + education + occupation + 
+                         contraception_use + delivery_place + delivery_professional +
+                         postpartum_care,
+                       design = svydesign_country, 
+                       family = quasibinomial())
+
+summary(glm_country)
+
+# Calculate AIC
+AIC(glm_country)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_country)
+print(conf_intervals)
+```
+
+```{r}
+# Final Model
+glm_country_final <- svyglm(experienced_fistula ~ age + religion + occupation 
+                         + delivery_professional + postpartum_care,
+                   design = svydesign_country, 
+                   family = quasibinomial())
+
+summary(glm_country_final)
+
+# Calculate AIC
+AIC(glm_country_final)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_country_final)
+print(conf_intervals)
+```
+
+
+
+```{r}
+# occupation*age
+glm_country_occupation1 <- svyglm(experienced_fistula ~ age + religion + occupation 
+                         + delivery_professional + postpartum_care + occupation*age,
+                   design = svydesign_country, 
+                   family = quasibinomial())
+
+summary(glm_country_occupation1)
+
+# Calculate AIC
+AIC(glm_country_occupation1)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_country_occupation1)
+print(conf_intervals)
+```
+
+```{r}
+# occupation*religion
+glm_country_occupation2 <- svyglm(experienced_fistula ~ age + religion + occupation 
+                         + delivery_professional + postpartum_care + occupation*religion,
+                   design = svydesign_country, 
+                   family = quasibinomial())
+
+summary(glm_country_occupation2)
+
+# Calculate AIC
+AIC(glm_country_occupation2)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_country_occupation2)
+print(conf_intervals)
+```
+
+
+```{r}
+# occupation*delivery_professional
+glm_country_occupation3 <- svyglm(experienced_fistula ~ age + religion + occupation 
+                         + delivery_professional + postpartum_care + occupation*delivery_professional,
+                   design = svydesign_country, 
+                   family = quasibinomial())
+
+summary(glm_country_occupation3)
+
+# Calculate AIC
+AIC(glm_country_occupation3)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_country_occupation3)
+print(conf_intervals)
+```
+
+```{r}
+# occupation*postpartum_care
+glm_country_occupation4 <- svyglm(experienced_fistula ~ age + religion + occupation 
+                         + delivery_professional + postpartum_care + occupation*postpartum_care,
+                   design = svydesign_country, 
+                   family = quasibinomial())
+
+summary(glm_country_occupation4)
+
+# Calculate AIC
+AIC(glm_country_occupation4)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_country_occupation4)
+print(conf_intervals)
+```
+

@@ -33,6 +33,27 @@
 
 @noauthor_womens_2024
 
+== Research Objectives
+The specific research objectives are as follows:
+
+1. Identify regional gaps in the determinants of fistula in West Africa. Understand
+  the special circumstances of fistula in various areas through analyzing the
+  prevalence in West Africa and each country, as well as the prevalence under
+  different factors. Analyze the similarities and differences in influencing
+  factors among countries.
+
+2. Investigate the economic and social, personal background, health care
+  utilization, family planning, and sexual health aspects related to fistula in
+  women of reproductive age in West Africa. Using quantitative analysis methods,
+  determine how related factors affect the prevalence of fistula in different West
+  African countries. And explore how economic status, education, and occupation interact with other factors to influence fistula prevalence.
+
+3. Create a data dashboard to visualize the prevalence of fistula in West Africa,
+  as well as the social determinants of women of childbearing age. The design of
+  the dashboard can help users to have a better knowledge of the social
+  determinants of fistula in women of reproductive age in West Africa, supporting
+  the implementation of appropriate policies for different areas.
+
 = Literature Review
 （Transition sentence, linking the introduction and the literature review）
 
@@ -110,6 +131,7 @@ investigated from four aspects.
 
 Wealth
 
+The Wealth Index is a composite measure that reflects the cumulative living standard of a household, calculated through data on asset ownership, housing characteristics, and access to services. It categorizes households into five wealth quintiles, allowing for the analysis of economic disparities and their impact on health outcomes. @dhs_program_wealth
 Wealth, as an economic indicator, influences fistula. A study on the
 determinants of obstetric fistula in Ethiopia discovered that wealth
 significantly affects the incidence of obstetric fistula.
@@ -212,7 +234,7 @@ about fistula, giving birth at home or in other places without trained
 professionals may be unable to identify the disease. This will lead to a delay
 in therapy.
 
-Distance to Medical Facilities
+Distance
 
 Distance to health facilities is a key factor affecting the risk of fistula. A
 study using data from the 2016 Ethiopian Demographic and Health Survey indicated
@@ -317,7 +339,7 @@ seriously. In addition to improving the quality of healthcare, the impact of
 socioeconomic, cultural and personal concepts on women's health should also be
 positively guided in order to reduce the prevalence of fistula.
 
-== Research Gaps and Future Research Directions
+== Research Gaps
 
 === Gaps Found in Current Research
 
@@ -350,20 +372,6 @@ Sub-Saharan Africa and four from the Middle East. @tebeu_risk_2012 This reflects
 a lack of studies focused on West Africa. Furthermore, West African countries
 such as Côte d'Ivoire face issues with poor data quality and potential
 underestimate. @noauthor_towards_2022
-
-=== Future Research Directions
-
-Future studies should focus on how stigma affects fistula patients.
-@changole_i_2017 It is vital to treat not only the medical disease, but also any
-psychological issues that occur. For example, research can focus on eliminating
-misconceptions that contribute to stigma. @roush_social_2009
-@bashah_consequences_2018 Research might also be undertaken on how to
-successfully reintegrate into society. @khisa_understanding_2017 Furthermore,
-prevention measures for fistulas should better identify specific risk factors in
-different countries. @tebeu_risk_2012 West African countries urgently require
-efficient national fistula treatment and prevention initiatives.
-@noauthor_towards_2022 When developing strategies, consider close integration
-with the Sustainable Development Goals. @slinger_obgyn_2020
 
 == Summary
 
@@ -425,28 +433,6 @@ for a more comprehensive understanding of the prevalence and determinants of
 fistula in West Africa.
 
 = Methodology
-== Research Objectives
-The literature review part include a brief description of the research
-questions. The specific research objectives are as follows:
-
-1. Identify regional gaps in the determinants of fistula in West Africa. Understand
-  the special circumstances of fistula in various areas through analyzing the
-  prevalence in West Africa and each country, as well as the prevalence under
-  different factors. Analyze the similarities and differences in influencing
-  factors among countries.
-
-2. Investigate the economic and social, personal background, health care
-  utilization, family planning, and sexual health aspects related to fistula in
-  women of reproductive age in West Africa. Using quantitative analysis methods,
-  determine how related factors affect the prevalence of fistula in different West
-  African countries.
-
-3. Create a data dashboard to visualize the prevalence of fistula in West Africa,
-  as well as the social determinants of women of childbearing age. The design of
-  the dashboard can help users to have a better knowledge of the social
-  determinants of fistula in women of reproductive age in West Africa, supporting
-  the implementation of appropriate policies for different areas.
-
 == Data Source
 The data used in this study are from the Demographic and Health Survey (DHS) dataset. The DHS program has conducted more than 400 surveys in more than 90 countries to collect and analyze accurate and representative demographic and health data. @dhs_program At first, data from 9 West African countries were considered. After data preparation, the decision was made to concentrate the analysis on 6 countries. The detailed information for each country dataset is shown in @Dataset-Information:
 
@@ -554,7 +540,7 @@ Before data analysis, preprocessing was performed to ensure data integrity. The 
 
 === Survey-weighted Generalised Linear Models
 
-   Survey-weighted Generalized Linear Models (svyglm) are used to identify the important determinants influencing fistula in West African women of reproductive age. The analysis steps are as follows: multicollinearity check, basic model fitting, interaction term analysis, and final model selection.
+   Survey-weighted Generalized Linear Models (svyglm) are used to identify the important determinants influencing fistula in West African women of reproductive age. The analysis steps are as follows: multicollinearity check, basic model fitting, final model selection, and interaction term analysis.
 
 1. Multicollinearity Check
 
@@ -562,7 +548,7 @@ Before data analysis, preprocessing was performed to ensure data integrity. The 
 
 2. Basic Model Fitting
   
-  Use the weighted generalized linear model (svyglm) for analysis after checking that there is no multicollinearity issue. This is because the data set has a complex sampling design and the target variable is a binary variable (experienced_fistula). Svyglm is an extension of the generalized linear model (GLM) that considers complicated sampling designs. It can adjust the model estimation by considering sample weights, stratification, and clustering to make the results more accurate. The basic model formula is as follows:
+  Use the weighted generalized linear model (svyglm) for analysis after checking that there is no multicollinearity issue. This is because the data set has a complex sampling design and the target variable is a binary variable (experienced_fistula). Svyglm is an extension of the generalized linear model (GLM) that considers complicated sampling designs. It can adjust the model estimation by considering sample weights, stratification by country, and clustering within the data to make the results more accurate and representative of the population. The significance of each variable is determined by its p-value, which helps to see if the observed relationships are statistically meaningful. Additionally, 95% confidence intervals are calculated for each coefficient to show a range that likely includes the true effect size, giving more insight into the accuracy and reliability of the estimates. The basic model formula is as follows:
 
   $ "logit(P(Y=1))" = beta_0+beta_1 X_1+beta_2 X_2+ dots + beta_k X_k $
 
@@ -590,259 +576,414 @@ Before data analysis, preprocessing was performed to ensure data integrity. The 
 
   4. Link Function: Logit is the standard function for dealing with binary dependent variables. The quasibinomial family chosen for the model uses the logit function by default, thus it fits the hypothesis.
 
-  5. Model Fit: The Akaike Information Criterion (AIC) is used to evaluate and compare the fit between the original and final models. The lower the AIC value, the better the model fits. The final model's fit, which confirms the rationality of the validated significant variables, is indicated by a reduced AIC value.
-
-
-3. Stepwise Validation of Interaction Terms
-
-  Due to the large number of variables, this research uses the gradual addition method to simplify the model and investigate the interaction between upstream economic and social characteristics (wealth, education, occupation) and other downstream aspects.
-
-  The specific steps involve adding only one interaction term at a time to the base model. The interaction term has two sides: the upstream and downstream factors. For example, add wealth*postpartum_care to the base model, then run the svyglm model to check the importance of the interaction term. Then, in the next analysis, replace postpartum_care with age, rerun the model, and check the significance of the new interaction term.
-
-  If an interaction term is significant, it shows a meaningful interaction between the upstream and downstream factors. As a result, the independent factors (such as wealth and postpartum_care) are included as important variables in the final model.
-
-  Furthermore, relevant interaction terms are investigated. Cross-tabulations are used to calculate fistula prevalence under various categorization combinations, and heat maps are used to highlight the true impact of these interaction effects.
-
-4. Model Determination and Evaluation
-
-  The final factors influencing fistula are the combination of the important factors in the basic model and the significant factors in the interaction analysis. The final models of West Africa and each country are fitted again using svyglm, and the AIC is calculated to assess the quality of fit. Then the AIC is compared to that of the base model. The findings reveal that the final model's AIC value is lower than that of the basic model, indicating that it is better.
-
-== Summary
-
-In this research, the weighted generalized linear model (svyglm) is used primarily to identify major factors influencing fistula in West Africa and other countries. The svyglm model can effectively identify factors that are significantly correlated with the target variable, as well as investigate the interaction between upstream factors (such as wealth, education, and occupation) and downstream factors by gradually adding interaction terms. 
-
-Although the svyglm model cannot automatically capture variable interactions, this research makes up for this limitation by gradually adding interaction terms, enabling a more comprehensive analysis of the complicated relationship between variables.
-
-This research method can not only identify the impact of individual variables, but also deeply explore the joint effects of upstream and downstream factors through the analysis of interactions. Finally, through using this methodology comprehensively, the study effectively reveals the major factors that have a substantial impact on the occurrence of fistula in West Africa and other countries.
-
-= Data Visualization
-
-= Results Analysis
-
-== Upstream Factors
-=== Wealth
-在西非地区，Wealth 的平均值为2.827，显示多数女性处于“较贫困”和“中等”之间，但 Wealth 分布不均，表明存在财富不平等问题。虽然各国之间的 Wealth 分布大致相近，但 Togo 的平均 Wealth 值较低（2.16），可能反映出该国经济状况相对较差。
-
-从 fistula 患病率来看，经济较好的群体（Wealth 指数为4）患病率最高，约为1.69%，而最贫困女性的患病率最低，仅为0.99%。在 Cote d'Ivoire 和 Guinea-Bissau，富裕女性的患病率较高，特别是在 Guinea-Bissau，最富裕女性群体患病率达到7.4%。相反，Sierra Leone 呈现出与 Wealth 负相关的趋势。Togo 在较贫困和较富裕人群中患病率较高。而Mali 和 Nigeria 的 fistula 患病率无论贫富均较低。
-
-总体而言，Wealth对fistula的影响在不同国家表现出显著差异。Togo，Cote d'Ivoire和GuineaBissau显示出较强的相关性。表明经济状况可能是这些国家中fistula患病率的主要影响因素。MCA 和双变量分析均表明，Wealth在西非和部分国家对患病率分布有显著贡献。这些结果在 svyglm 分析中得到进一步确认，显示 Wealth在西非， Cote d'Ivoire，Guinea-Bissau，Sierra Leone 和 Togo中是影响fistula的关键因素之一。
-
-综上所述，Wealth对fistula的影响在西非地区及其各个国家中表现出复杂且多样的关联性。在一些国家富裕女性的患病率更高，这表明 Wealth并非唯一的决定因素，患病率还可能受到其他因素的影响。通过后续的交叉分析，可以更深入地探讨 Wealth 与其他因素的交互作用，揭示wealth作为上游因素是如何影响fistula的。
-
-=== Education
-在西非地区，education 的平均值为0.72，显示多数女性处于“无教育”和“初级教育”之间。Nigeria（0.97）和Sierra Leone（0.84）的教育水平相对较高，但也主要集中在初等教育。而其他国家女性平均教育水平更低，大部分处于无教育状态，显示出教育机会的严重不足。
-
-从 fistula 患病率来看，西非的教育程度与患病率呈现负相关趋势。教育程度越高，患病率越低。塞拉利昂、尼日利亚、马里和多哥基本遵循这一规律。科特迪瓦的整体患病率较高，尤其是在高等教育阶段。几内亚比绍的患病率在所有国家中最高，随着教育水平的提升患病率逐渐降低，但在高等教育阶段则出现最低患病率的例外情况。
-
-总体而言，education对fistula的影响在不同国家表现出显著差异。GuineaBissau和Cote d'Ivoire显示出较强的相关性。表明教育状况可能是这些国家中fistula患病率的影响因素之一。MCA分析表明，教育对西非和各国的患病率分布有显著贡献。双变量分析显示，在西非和塞拉利昂，教育是显著影响因素。svyglm分析则表明，教育是西非及各国（除Guinea-Bissau外）影响瘘管患病率的关键因素之一。
-
-综上所述，教育对fistula的影响在西非地区及其各个国家中表现出多样化的关系。尽管在大多数国家，教育水平较低的群体患病率更高，但这一趋势并不绝对，尤其在某些国家，教育与患病率的关系更为复杂。这表明教育并非唯一的决定因素。进一步的交互分析将有助于更深入理解教育与其他因素的相互作用，从而揭示教育作为上游因素对瘘管患病率的具体影响。
-
-=== Occupation
-在西非地区，occupation 的平均值为0.901，显示多数女性处于工作状态。各个国家的数据也显示大部分女性都是有工作的。
-
-在西非整体，以及Mali、GuineaBissau、和Cote d'Ivoire，工作的女性患病率较低，呈现出负相关趋势。在尼日利亚，虽然没有工作的样本较少，但工作女性的患病率非常低。相比之下，Togo和Sierra Leone的工作女性患病率更高。而值得注意的是，无论工作与否，GuineaBissau的女性患病率在所有国家中最高。在问卷中，少数女性选择了“不知道”选项，可能是由于不愿提供具体信息。总体而言，除了GuineaBissau这部分女性的患病率较低。不过由于样本数量较少，这部分数据无法与明确工作状态的群体直接对比。
-
-总结来看，occupation与瘘管患病率在西非地区表现出显著的关系。MCA分析表明，occupation在西非整体、科特迪瓦、尼日利亚、马里和塞拉利昂对瘘管患病率有显著影响，而在几内亚比绍和多哥的影响较为微弱。双变量分析进一步证实了西非整体、尼日利亚和塞拉利昂的工作状态与瘘管患病率存在显著关联。而svyglm分析则揭示了除马里外的所有国家中，occupation都是显著影响因素，这在一些国家可能与交互项的作用有关。
-
-综上所述，occupation在多数西非国家中是影响瘘管患病率的重要因素，尽管其影响在各国之间有所不同。
-
-== Downstream Factors
-=== Age
-在西非地区，age的平均值为3.46，表明20-39岁的女性占据了较大比例。各国中，女性人数最多的年龄段也集中在这一范围内。
-
-在西非整体，45-49岁和15-19岁女性的患病率最高。其他年龄段的患病率也都超过了1.1%。几内亚比绍和塞拉利昂的患病率较高，且随着年龄的增长逐渐加重；而尼日利亚和马里则表现出较低的患病率，尤其在老年群体中更为轻微。科特迪瓦的年轻女性患病率较高，而多哥则在中年女性中患病率显著增加。
-
-总体而言，年龄变量在不同分析中的表现具有一定的差异性。GuineaBissau和塞拉利昂的数据显示，年龄与fistula患病率存在较强的相关性，说明年龄可能是患病率的影响因素之一。MCA分析中，虽然年龄对第一维度的影响有限，但是在第二维度上年龄在西非整体及各个国家中都有较大的贡献。双变量分析显示，在Nigeria和Togo，age是显著影响因素。svyglm分析进一步确认了年龄在尼日利亚、塞拉利昂和多哥中的重要性，强调了其对fistula的重要影响。
-
-综上所述，年龄是影响西非地区瘘管患病率的重要因素，尤其是年轻和老年群体需要特别关注。
-
-=== Religion
-在西非地区，religion的平均值为1.338，表明大多数受调查者信仰“Muslim”。在大多数国家中，除了多哥（Togo）以外，信仰穆斯林的比例占据主导地位。而Togo大部分女性信仰Christian和Animist。
-
-总体来看，在西非地区，穆斯林群体的患病率最高，而其他宗教群体的患病率相对较低。SierraLeone的基督教患病率最高。Togo的无信仰女性的患病率最高。而其他国家都是muslim的患病率最高。其中，GuineaBissau不管是信仰muslim还是基督教的女性患病率都异常高于其他国家的水平。
-
-MCA分析表明，在Nigeira和Togo，religion对fistula有作出一定贡献。双变量分析显示，在西非，GuineaBissau，Mali和Nigeria，religion是显著影响因素。进一步的svyglm分析表明，除了Cote d'Ivoire外，宗教在其他国家对患病率都有显著影响，凸显了其对fistula的影响力。
-
-在西非地区，宗教对健康状况具有显著的影响，特别是在穆斯林占主导地位的国家中，穆斯林群体的患病率普遍较高。宗教在影响女性健康，特别是瘘管发病率方面，具有重要作用。
-
-=== Residence
-在西非地区，residence的平均值为1.65，表明居住在农村的女性偏多。Cote d'lvoire的女性更多居住在城市。而其他国家的女性则主要居住在农村。
-
-总体来看，西非地区城市女性的患病率略高于农村女性。然而，在Mali、Nigeria和SierraLeone，农村女性的患病率高于城市女性。而其他国家都是城市女性的患病率更高。其中，GuineaBissau不管是居住在城市还是农村的女性患病率都显著高于其他国家的水平。
-
-MCA分析显示，residence在西非和各国中都对fistula有重要贡献。双变量分析表明，在Cote d'Ivoire，GuineaBissau，和Nigeria，religion是显著影响因素。进一步的svyglm分析则揭示，在Cote d'Ivoire，Nigeria和Togo，residence对患病率有显著影响。
-
-综上所述，residence对西非地区瘘管患病率的影响具有重要作用，但存在地域差异。在科特迪瓦、尼日利亚和多哥，居住地差异显著影响患病率。
-
-=== Postpartum_care
-在西非地区，residence的平均值为2.48，表明大多数女性偶尔接受产后护理。具体到各国家，Mali和Nigeria的女性更倾向于从未接受过产后护理。而其他国家的女性则主要偶尔接受护理。
-
-总体来看，在西非一直接受产后护理的女性患病率远高于其他人群。在尼日利亚和多哥，从未接受过产后护理的女性患病率高于那些一直接受护理的女性，而在其他国家则相反。尤其是GuineaBissau接受产后护理的患病率异常显著。
-
-在MCA分析中，产后护理在西非整体及各国家中并未显示出显著贡献。然而，双变量分析表明，在西非、几内亚比绍和塞拉利昂，产后护理是显著影响变量。进一步的svyglm分析则揭示，产后护理在西非、几内亚比绍、尼日利亚、塞拉利昂和多哥中都是显著的影响因素。
-
-综上所述，产后护理在西非地区瘘管患病率中的影响表现出一定的复杂性。尽管在MCA分析中未显示出显著贡献，但在更深入的双变量和svyglm分析中，产后护理在西非和多个国家中成为显著的影响因素，可能反映了上游因素的交互作用。值得注意的是，接受产后护理的女性患病率较高可能与因患病而更频繁接受护理的情况有关。
-
-=== Place of Delivery
-在西非地区，place of delivery的平均值约为2.2，表明大多数女性偶尔在医疗设施中分娩。科特迪瓦和塞拉利昂的女性更倾向于在医疗设施中生产，而多哥的女性则更多在非医疗设施中分娩。尼日利亚，马里和几内亚比绍的女性在医疗设施中分娩的频率介于两者之间。
-
-总体来看，西非在医疗设施生产的患病率高于其他地点。而各国的瘘管患病率在不同的生产地点显示出不同的趋势。几内亚比绍在所有情况下的患病率都异常高，而马里和尼日利亚则随着医疗设施使用频率增加，患病率逐渐下降。塞拉利昂和多哥的情况较为复杂，患病率在不同生产地点间有所波动。
-
-在MCA分析中，place of delivery对塞拉利昂中的贡献不显著，但在西非和其他国家显示出较大贡献。双变量分析表明，生产地点在西非、几内亚比绍和马里是显著的影响变量。进一步的svyglm分析揭示，生产地点在西非和所有国家都是显著的影响因素。
-
-总之，生产地点对fistula患病率有显著影响，但不是唯一的决定性因素。尽管在医疗设施中生产通常被认为能减少并发症，但在西非，医疗设施分娩的fistula患病率反而高于其他地点。这可能与医疗资源的分布不均、设施的过度拥挤、或产后护理不足等因素有关。
-=== Distance
-在西非地区，distance的平均值约为0.38，表明大多数女性距离医疗设施的距离并不是一个主要问题。具体到各个国家，女性普遍认为距离问题并不突出。
-
-总体来看，在西非地区，那些认为距离医疗设施是一个问题的女性，其患病率较高。在马里和尼日利亚，认为距离有问题的女性患病率较高。在科特迪瓦，塞拉利昂和多哥，认为距离不是大问题的女性反而患病率较高。而几内亚比绍的患病率无论在何种感知下都非常高。
-
-在MCA分析中，distance对GuineaBissau和Mali有一定贡献。双变量分析表明distance在西非和Togo中显著。svyglm分析进一步表明distance是影响西非和Togo fistula的重要因素之一。
-
-总之，distance在西非整体和Togo是重要因素。在西非，认为和医疗设施距离问题不大的患病率更低，而Togo则相反。这表明在不同地区，与医疗设施的距离对fistula的影响存在显著差异。这个现象可能反映了不同国家的医疗资源分布和可及性问题。
-
-=== Professional Delivery
-在西非地区，delivery_professional的平均值约为1.31，表明大多数女性一直在专业环境下生产。具体到各个国家，Nigeria的大多数女性处于一直在专业环境下生产和偶尔在专业环境下生产之间。其他国家的女性则更多一直在专业环境下生产。
-
-总体来看，在西非地区，总是在专业环境下分娩的女性患病率较高。在Cote d'Ivoire，Guinea Bissau和Sierra Leone，专业生产与更高的fistula患病率相关联。而在Mali，Nigeria和Togo，从未接受专业助产的女性患病率更高。
-
-在MCA分析中，专业生产对除了Sierra Leone和Togo外的所有地区都有作出贡献。双变量分析表明专业生产在西非，Cote d'Ivoire，Guinea Bissau是显著的影响因素。在svyglm中，专业生产在Cote d'Ivoire，Guinea Bissau，Sierra Leone和Togo中是显著的。
-
-专业助产在西非地区对瘘管患病率的影响因国家而异。由于大多数女性都接受了专业助产，这意味着高风险群体可能更容易集中在医疗环境中。，因此在这些环境中，fistula患病率可能更高。而一些国家如Togo，未接受专业生产的女性患病率更高，这表明缺乏专业生产可能是瘘管患病率的一个关键风险因素。
-
-=== Contraception Use
-在西非地区，避孕使用的平均值约为1.88，表明大多数女性不使用避孕措施。具体到各个国家，女性普遍不使用避孕措施。
-
-总体来看，使用其他避孕方式的女性患病率最高，其次是不使用避孕措施的女性。在Sierra Leone和Togo，不使用避孕措施的女性患病率最高。在Cote d'Ivoire，Guinea Bissau和Mali，使用其他避孕方式的女性患病率最高。尼日利亚的患病率无论使用何种避孕方式都保持在较低水平。
-
-在MCA分析中，避孕使用并未对分析结果作出显著贡献。双变量分析显示，避孕使用在在西非，Guinea Bissau和Sierra Leone是显著的影响因素。进一步的svyglm分析表明，在西非和除Mali以外的国家，避孕使用对患病率具有显著影响。
-
-总体而言，使用科学避孕的女性患病率最低。在部分国家，使用其他避孕方法的女性患病率最高，可能是因为这些方法效果不佳，其防护作用与不使用避孕措施相差无几。因此，避孕方式的选择对fistula患病率有重要影响，进一步强调了科学选择避孕方式的重要性。
-
-=== Age of First Sexual Intercourse
-在西非地区，初次性生活年龄的平均值约为1.136，表明大多数女性在8-19岁期间首次有性经历。具体到各个国家，除了Togo外，其他国家的女性普遍在8-19岁有性经历，而多哥的女性初次性生活年龄更晚，更多在成年后发生。
-
-总体来看，在西非，第一次有性经历发生在初次同居期间的女性患病率较高，其次是在8-19岁期间发生的性经历。在Cote d'Ivoire，Guinea Bissau，Nigeria和Sierra Leone，8-19岁期间的患病率最高，尽管Nigeria的患病率总体较低。Mali则是无论哪个年龄段的患病率基本相似。而在多哥，初次同居期间发生的性经历患病率较高，8-19岁的患病率最低。
-
-在MCA分析中，Guinea Bissau和Togo的初次性生活年龄对分析有一定贡献。双变量分析中，只有Sierra Leone显示为重要变量。svyglm分析则显示，Cote d'Ivoire，Sierra Leone和Togo的初次性生活年龄显著影响fistula患病率。
-
-综上所述，初次性生活年龄对fistula有一定影响。在Togo，由于大部分女性的初次性生活年龄更晚，初次同居期间的性经历发生率较高，因此这一阶段的患病率较高。同时，8-19岁期间的患病率较低，可能与减少早孕几率有关，从而避免了因骨盆未成熟而增加瘘管风险的情况。这些结果强调了推迟初次性经历的重要性，以及预防早孕对降低fistula患病率的潜在作用。
-
-=== Total Births
-在西非地区，生育总数的平均值约为0.46，表明生育数量在低生育率（三个或更少）和高生育率（四个或更多）之间的分布较为均衡。具体到各个国家，Cote d'Ivoire，Guinea Bissau和Sierra Leone普遍生育数量为3个及以下。而Mali，Nigeria和Togo的的女性生育数量相对均衡，略多于前三个国家。
-
-总体来看，在西非地区，生育数量为三个及以下的女性患病率稍高一些。Cote d'Ivoire，Nigeria和Sierra Leone，的数据显示，生育数量较少（三个及以下）的女性患病率更高，尽管Nigeria的整体患病率仍然较低。相反，在Togo，生育四个及以上孩子的女性患病率远高于生育较少孩子的女性。GuineaBissau和Mali的患病率在生育数量不同的情况下几乎没有差异。不过GuineaBissau的患病率都很高，而Mali的较低。
-
-在MCA分析中，生育总数对西非和各国家的分析贡献显著。双变量分析显示，生育数量在西非和Togo是显著的影响因素。svyglm分析进一步表明，生育数量在西非，Sierra Leone和Togo中具有显著的影响。
-
-总之，生育数量是西非和部分国家fistula的影响因素之一。在西非和Sierra Leone，生育数量较少的女性患病率较高，这可能与大多数女性生育数量为三个及以下，样本量更大有关。而在Togo，生育数量分布较为均衡，且生育四个及以上孩子的女性患病率明显更高，表明在生育较多的情况下，患病风险可能会增加。
-
-
-== Interaction Effects
-
-
-== Comparative Analysis Across Countries 
-
-
-
-
-
-In this research of fistula in women of childbearing age in West Africa, the key influencing factors that need to be retained are finally determined through comprehensive analysis of three methods: GLM, decision tree (DT) and random forest (RF). The results are shown in @WestAfrica.
+  5. Model Fit: The Akaike Information Criterion (AIC) is used to evaluate and compare the fit between the original and final models. The lower the AIC value, the better the model fits. The final model's fit, which confirms the rationality of the validated significant variables, is indicated by a reduced AIC value. The results are shown in @AIC-Comparison.
 #figure(
-  caption: "West Africa",
+  caption: "Model Performance Comparison",
   table(
-    columns: (auto, auto, auto, auto, auto),
+    columns: (auto, auto, auto),
     align: center,
     stroke: none,
     table.hline(),
-    table.header([*Factor*], [*GLM*], [*DT Hierarchy*], [*Importance Score*], [*RF Ranking*]),
+    table.header([*Region*], [*AIC(original)*], [*AIC(current)*]),
     table.hline(),
-    [postpartum_care],
-    [< 2e-16],
-    [Root Node],
-    [19.040851],
-    [1],
-    [religion],
-    [0.001744],
-    [],
-    [11.666741],
-    [2],
-    [distance],
-    [0.004044],
-    [],
-    [8.291541],
-    [3],
-    [occupation],
-    [0.011409],
-    [1],
-    [7.365686],
-    [4],
-    [delivery_place],
-    [0.000384],
-    [],
-    [7.147984],
-    [5],
-    [contraception_use],
-    [1.35E-08],
-    [1],
-    [6.890601],
-    [6],
-    [education],
-    [1.25E-06],
-    [],
-    [6.790721],
-    [7],
-    [number_birth],
-    [0.004799],
-    [],
-    [6.6463],
-    [8],
-    [delivery_professional],
-    [0.070237],
-    [3],
-    [6.046161],
-    [9],
-    [residence],
-    [0.925347],
-    [],
-    [6.016956],
-    [10],
-    [wealth],
-    [0.009114],
-    [2],
-    [5.532882],
-    [11],
-    [age],
-    [0.053819],
-    [],
-    [5.511915],
-    [12],
-    [age_sex],
-    [0.294214],
-    [],
-    [5.228768],
-    [13],   
+    [West Afirca],
+    [5022.23776],
+    [5009.574994],
+    [Cote d'Ivoire],
+    [777.1836],
+    [738.044482],
+    [GuineaBissau],
+    [2000.545597],
+    [1975.36238],
+    [Mali],
+    [381.6466946],
+    [363.6374215],
+    [Nigeria],
+    [381.83354],
+    [373.2536296],
+    [Sierra Leone],
+    [930.523684],
+    [927.050836],
+    [Togo],
+    [192.5654303],
+    [182.5412551],  
     table.hline(),
   ),
-) <WestAfrica>
+) <AIC-Comparison>
 
-Specifically, the three variables residence, age and age_sex are not remained in the final analysis. The reasons are as follows:
+3. Model Determination and Evaluation
 
-Residence: In the GLM model, the p-value of residence is 0.925347, which is much higher than 0.05, indicating that it is not significant when analyzed independently. In addition, in the decision tree model, residence is not in the first few layers, which indicates that it does not contribute enough to the classification in the decision tree model. In the random forest analysis, the importance score of residence is 6.016956, ranking 10. Combined with the results of the other two models, the impact of residence on fistula is not strong enough, so after comprehensive consideration, it is decided not to retain it as a key influencing factor.
+  The final factors influencing fistula are determined by the variables that are significant in the 'svyglm' regression analysis. These significant variables are used to fit the final models for West Africa and each country, and the AIC is calculated to assess the model fit. The AIC of the final model is then compared to that of the base model. If the AIC of the final model is lower, it indicates a better fit than the base model, confirming the robustness of the final model.
 
-Age: The p-value of age in GLM is 0.053819, which is close to the significance level of 0.05, but does not meet the strict significance requirement. In the random forest analysis, the importance score of age is 5.511915, ranking 12, indicating that its influence is relatively weak. Although age is a recognized potential influencing factor, it does not show a strong influence in this study. Therefore, in order to ensure the reliability of the model, it is decided to discard the age variable.
+4. Exploration of Upstream and Downstream Factor Interaction Terms
 
-Age_Sex: The p-value of the variable of age at first sexual intercourse in GLM is 0.294214, indicating that its independent contribution is not significant. It also does not show high importance in decision trees and random forests. Specifically, it ranks 13 in the random forest analysis, further illustrating its secondary importance in the overall analysis. Therefore, this variable is excluded from the final model.
+  Given the large number of variables, this research uses a stepwise addition approach to examine the interaction between upstream characteristics (wealth, education, occupation) and downstream factors.
 
-Therefore, there are 10 important factors affecting fistula in West Africa, including postpartum care, religion, distance, occupation, delivery place, contraception use, education, the number of birth, delivery professional, and wealth.
+  The process involves adding only one interaction term at a time to the final model. These interaction terms consist of upstream and downstream factors. For example, an interaction term like wealth*age_sex is added to the final model, and then the svyglm model is run to evaluate the significance of the interaction. In subsequent analyses, different downstream factors in the final model are tested by replacing age_sex with another variable, and the model is rerun to assess the significance of the new interaction term. If the interaction term is significant (p-value < 0.05) and results in a lower AIC value compared to the final model without the interaction term, this indicates a meaningful interaction between the upstream and downstream factors.
 
-Through comparative analysis, several factors that play a significant role in influencing fistula can be found:
+== Summary
 
-Postpartum Care: Postpartum care shows a highly significant effect in all three analysis methods. In GLM, its p-value is much less than 0.05, showing extremely high statistical significance. In the decision tree, postpartum care is the root node, indicating its importance in classifying fistula risk. In addition, in the variable importance score of random forest, postpartum care scores the highest, further establishing its position as a major influencing factor.
+In this research, the weighted generalized linear model (svyglm) is used primarily to identify major factors influencing fistula in West Africa and other countries. The svyglm model can effectively identify factors that are significantly correlated with the target variable. Additionally, it facilitates the investigation of interactions between upstream factors (wealth, education, and occupation) and downstream factors by gradually introducing interaction terms.
 
+Although the svyglm model cannot automatically capture variable interactions, this research makes up for this limitation by gradually adding interaction terms, enabling a more comprehensive analysis of the complicated relationship between variables.
+
+This research method can not only identify the impact of individual variables, but also deeply explore the joint effects of upstream and downstream factors through the analysis of interactions. Ultimately, this comprehensive methodology effectively identify the key factors that significantly influence the occurrence of fistula in West Africa and other countries.
+
+= Data Visualization
+(Dashboard)
+
+= Results Analysis
+== Descriptive Analysis
+=== Overview of Fistula Prevalence
+#figure(
+  caption: "Overview of Fistula Prevalence",
+  table(
+    columns: (auto, auto),
+    align: left,
+    stroke: none,
+    table.hline(),
+    table.header([**Area**], [**Prevalence**]),
+    table.hline(),
+    [West Africa],[1.25%],
+    [Cote d'lvoire],[1.18%],
+    [Guinea-Bissau],[4.60%],
+    [Mali],[0.46%],
+    [Nigeria],[0.20%],
+    [Sierra Leone],[1.44%],
+    [Togo],[1.02%],
+    table.hline(),
+  ),
+) <overview-prevalence>
+
+The overall fistula prevalence in West Africa is 1.25%, indicating that fistula remains an important public health issue, with significant differences across countries. Specifically, Guinea-Bissau has the highest prevalence, reaching 4.60%. In contrast, Nigeria has the lowest prevalence, at only 0.20%. Mali follows with a prevalence of 0.46%. Togo (1.02%), Cote d'Ivoire (1.18%), and Sierra Leone (1.44%) have moderate prevalence rates but still warrant attention. Overall, these differences suggest that countries face varying challenges in addressing fistula prevalence.
+
+=== Frequency and Prevalence Distributions
+#figure(
+  caption: "West Africa: Frequency Distribution and Prevalence",
+  table(
+    columns: (auto, auto, auto),
+    align: left,
+    stroke: none,
+    table.hline(),
+    table.header([**Variable**], [**Category**], [**Frequency (%) and Prevalence**]),
+    table.hline(),
+    [**Wealth**], [Poorest (1)], [10448.50 (26.47%) - 0.99%],
+    [], [Poor (2)], [8773.27 (22.25%) - 1.19%],
+    [], [Middle (3)], [7952.63 (20.16%) - 1.05%],
+    [], [Richer (4)], [7341.33 (18.42%) - 1.69%],
+    [], [Richest (5)], [6433.43 (16.23%) - 1.44%],
+    table.hline(),
+    [**Education**], [No Education (0)], [31192.33 (65.94%) - 1.47%],
+    [], [Primary (1)], [10001.12 (21.16%) - 1.08%],
+    [], [Secondary (2)], [5675.87 (12.00%) - 0.93%],
+    [], [Higher (3)], [982.42 (2.08%) - 0.77%],
+    table.hline(),
+    [**Occupation**], [Not Working (0)], [11645.71 (24.60%) - 1.20%],
+    [], [Working], [25284.87 (53.41%) - 1.35%],
+    [], [Don't Know], [10357.72 (22.00%) - 1.05%],
+    table.hline(),
+    [**Age**], [15-19 Years], [3094.80 (7.86%) - 1.43%],
+    [], [20-24 Years], [8301.82 (21.08%) - 1.23%],
+    [], [25-29 Years], [10049.34 (25.51%) - 1.20%],
+    [], [30-34 Years], [7941.18 (20.16%) - 1.17%],
+    [], [35-39 Years], [6140.57 (15.59%) - 1.29%],
+    [], [40-44 Years], [2814.62 (7.14%) - 1.26%],
+    [], [45-49 Years], [1044.97 (2.65%) - 1.67%],
+    table.hline(),
+    [**Religion**], [Muslim], [28051.66 (71.22%) - 1.43%],
+    [], [Christian], [10025.26 (25.45%) - 0.86%],
+    [], [Animist], [697.30 (1.77%) - 0.31%],
+    [], [No Religion], [574.72 (1.46%) - 0.57%],
+    [], [Other Religions], [38.35 (0.10%) - 0.00%],
+    table.hline(),
+    [**Residence**], [Urban], [13723.77 (34.84%) - 1.42%],
+    [], [Rural], [25663.53 (65.16%) - 1.20%],
+    table.hline(),
+    [**Delivery Place**], [Home (1)], [24592.33 (58.95%) - 1.32%],
+    [], [Health Facility (2)], [17439.27 (41.05%) - 1.02%],
+    table.hline(),
+    [**Distance**], [Big Problem (1)], [20333.77 (51.87%) - 1.31%],
+    [], [Not a Problem (2)], [18889.23 (48.13%) - 1.12%],
+    table.hline(),
+    [**Delivery Professional**], [Always Assisted (1)], [21188.77 (52.91%) - 1.18%],
+    [], [Occasionally Assisted (2)], [6454.22 (16.13%) - 1.15%],
+    [], [Never Assisted (3)], [12509.97 (31.26%) - 1.34%],
+    table.hline(),
+    [**Postpartum Care**], [Received Care (1)], [24650.45 (65.35%) - 1.21%],
+    [], [No Care (2)], [11736.85 (30.65%) - 1.40%],
+    table.hline(),
+    [**Age at First Sexual Intercourse**], [8-19 Years], [34633.88 (87.93%) - 1.30%],
+    [], [20-49 Years], [4139.14 (10.51%) - 0.76%],
+    [], [At First Cohabitation], [614.28 (1.56%) - 1.57%],
+    table.hline(),
+    [**Number of Births**], [Three or Fewer Children], [21243.76 (53.94%) - 1.38%],
+    [], [Four or More Children], [18143.54 (46.06%) - 1.10%],
+    table.hline(),
+    [**Contraception Use**], [No Use (0)], [38702.16 (84.00%) - 1.25%],
+    [], [Traditional Methods (1)], [3033.91 (6.59%) - 1.07%],
+    [], [Modern Methods (2)], [4351.23 (9.41%) - 1.38%],
+    table.hline(),
+  ),
+) <distribution>
+
+Wealth: In West Africa, the distribution of women across wealth categories is fairly even, though the poorest groups have a slightly larger share. The highest fistula prevalence is found among the wealthiest women (1.69%), while the poorest have the lowest prevalence (0.99%), suggesting a higher risk among wealthier women. When examining individual countries within West Africa, distinct trends emerge: fistula prevalence is higher among wealthier women in Cote d'Ivoire, Guinea, and Togo. In contrast, in Mali and Sierra Leone, poorer women are more affected. Nigeria shows the highest prevalence among women in the middle wealth category, though overall prevalence remains low. (Appendix for detailed country data)
+
+Education: In West Africa, over half of the women are uneducated (65.94%), with the highest fistula prevalence among this group (1.47%), and showing a generally negative trend between education and fistula risk. This pattern is consistent in Nigeria, Sierra Leone, and Togo, where higher education is linked to lower prevalence. However, in Côte d'Ivoire, despite a majority being uneducated, higher education correlates with the highest prevalence (2.74%). In Guinea and Mali, while most women are uneducated and prevalence is high, those with secondary education have the highest prevalence, but the risk drops to the lowest among women with higher education. (Appendix for detailed country data)
+
+Occupation: In West Africa, the majority of women are employed, comprising approximately 70.58% of the population. The prevalence of fistula among working women is 1.27%, which is lower than the 1.64% prevalence observed among non-working women. Across individual countries, most women are also employed. Specifically, in Sierra Leone and Togo, fistula prevalence is higher among working women, which could be attributed to the larger sample size of working women (80.18% in Sierra Leone and 85.75% in Togo). In contrast, in Cote d'Ivoire, Guinea-Bissau, Mali, and Nigeria, the prevalence of fistula is lower among working women compared to those who are not working. Nigeria stands out with an overall very low prevalence of fistula and no sample of non-working women. These patterns suggest that occupation may influence fistula prevalence, although the impact varies across different contexts in West Africa. (Appendix for detailed country data)
+
+Age: In West Africa, young women aged 15-19 have a relatively high fistula prevalence of 1.43%, but they make up only 7.86% of the total population. As women move into the 20-34 age range, the prevalence decreases to its lowest (1.17% to 1.23%), with this age group comprising 66.75% of the population. However, as women age further, particularly in the 45-49 age group, the prevalence sharply rises to 1.67%, although this age group accounts for only 2.65% of the population. This trend suggests that while the risk of fistula may decrease during peak childbearing years, it appears to increase in later years. In the analysis by country, similar trends and significant differences emerge. In Guinea Bissau, Mali, Sierra Leone, and Togo, older women have higher prevalence rates, despite representing a smaller proportion of the population, indicating that health concerns among older women warrant more attention. Notably, in Cote d'Ivoire, women aged 25-29 have a significantly higher prevalence rate of 1.99% compared to other age groups. Conversely, in Nigeria, the prevalence is consistently low across all age groups, not exceeding 0.5%. Additionally, in most countries, except for Guinea Bissau, the prevalence among younger women is relatively low. (Appendix for detailed country data)
+
+Residence: In West Africa, most women (65.16%) live in rural areas, with a fistula prevalence of 1.16%. In contrast, 34.84% of women reside in urban areas, where the prevalence is slightly higher at 1.42%. This suggests that although more women live in rural areas, those in urban areas may face a slightly higher risk of developing fistula. Similarly, in Cote d'Ivoire, the distribution between urban and rural areas is relatively even, but the prevalence of fistula is higher in urban areas (1.6%). Likewise, in Togo, although the majority of women live in rural areas (83.92%), the fistula prevalence is higher in urban regions (2.03%). On the other hand, in Guinea Bissau, Mali, Nigeria, and Sierra Leone, rural populations are larger. And in these countries, rural women show a higher fistula prevalence compared to their urban counterparts. Although the higher prevalence in rural areas might be influenced by the larger sample size, it also highlights the need for greater attention to fistula risk in rural areas. (Appendix for detailed country data)
+
+Religion: In West Africa, Muslims make up the majority of the population (71.22%) and have the highest fistula prevalence at 1.43%. Christians represent 25.45% of the population, with a lower prevalence of 0.86%. The remaining groups, including Animists, those with no religion, and other religions, account for a very small portion of the population and show very low fistula prevalence. In Sierra Leone, Christians make up 21.25% of the population, while Muslims account for 78.73%. However, the highest fistula prevalence is found among Christians at 1.62%. In Togo, the religious landscape is more diverse. Christians are the largest group at 36.97%, with a fistula prevalence of 1.4%, the second highest. Animists, who comprise 34.85% of the population, have a very low prevalence at 0.43%. Those with no religious affiliation, making up 14.6% of the population, have the highest prevalence at 1.52%. The trends in other countries are similar to those observed across West Africa overall. In summary, while Muslims are the majority in West Africa and generally exhibit the highest fistula prevalence, there are significant exceptions. This suggests that the relationship between religion and fistula risk may vary significantly across different regions. (Appendix for detailed country data)
+
+Postpartum_Care: In West Africa, the majority of women (74.23%) never received postpartum care, yet their fistula prevalence is relatively low at 0.80%. About a quarter of women (25.75%) consistently received postpartum care, but this group exhibits a significantly higher fistula prevalence of 2.54%. In specific countries, such as Nigeria, 84.59% of women never received postpartum care, and while their prevalence is higher than those who received care, it remains low at 0.22%. In Togo, 59.14% of women did not receive postpartum care, and their prevalence is higher at 1.08%. Other countries show patterns similar to the overall trend in West Africa. This highlights the complexity of the relationship between postpartum care and fistula prevalence, suggesting that other factors may be at play in determining the risk. (Appendix for detailed country data)
+
+Delivery_place: In West Africa, most women (57.03%) always deliver in health facilities, and this group shows the highest fistula prevalence at 1.47%. A significant portion (37.04%) never delivers in health facilities and has a lower prevalence of 0.94%. A small percentage (5.92%) occasionally delivers in health facilities, with a prevalence of 1.07%. In Mali, Nigeria and Sierra Leone, women deliver in health facilities (65.92%, 36.18% and 62.88%, respectively) have the lowest prevalence rates (0.34%, 0.15% and 0.21%, respectively). The higher prevalence in health facilities could be linked to the complexity of cases referred to these settings. @tebeu_risk_2012 (Appendix for detailed country data)
+
+
+Delivery_professional: In West Africa, the majority of women (84.32%) consistently receive professional assistance during childbirth, with a fistula prevalence of 1.36%. A smaller portion of women (15.66%) never receive professional assistance, and their fistula prevalence is lower, at 0.67%. The higher fistula incidence observed among women who receive professional care during childbirth may be attributed to the fact that these women are already at higher risk due to underlying complications. @filippi_effects_nodate In Mali, Nigeria, and Togo, 19.25%, 26.34%, and 20.91% of women, respectively, do not receive professional assistance during childbirth, and they exhibit higher fistula prevalence rates of 0.65%, 0.28%, and 1.21%. Other countries follow a similar trend to the overall pattern in West Africa. This suggests that the presence of professional care, while essential, often accompanies more complex or high-risk pregnancies. (Appendix for detailed country data)
+
+Distance: In West Africa, 38.07% of women consider distance to a medical facility a significant issue, and this group has the highest fistula prevalence at 1.46%. In countries like Côte d'Ivoire, Sierra Leone, and Togo, the distribution of women who view distance as a problem versus those who do not is relatively balanced. Interestingly, in these countries, women who do not perceive distance as a major issue have higher fistula prevalence rates of 1.28%, 1.57%, and 1.71%, respectively. In Guinea Bissau, both the distribution and prevalence rates are more evenly spread. The trends in Mali, Nigeria, and across West Africa as a whole are similar to the overall pattern observed. This suggests that while distance is a recognized barrier, the perception of its impact on health outcomes, such as fistula prevalence, may vary significantly across different countries. (Appendix for detailed country data)
+
+Age_sex: In West Africa, the majority of women (87.93%) report having their first sexual intercourse between the ages of 8-19, with a fistula prevalence of 1.30%. A small percentage (1.56%) experienced their first sexual intercourse at the time of first cohabitation, and this group has the highest prevalence at 1.57%. These data suggest that earlier sexual debut is associated with a higher prevalence of fistula, but the highest risk is among those who begin sexual activity at the time of cohabitation. In Mali, the prevalence of fistula is nearly the same regardless of the age of first intercourse (0.46%, 0.47%). Interestingly, in Togo, the lowest prevalence is observed among those whose first sexual intercourse occurred between ages 8-19. The trends in other countries are similar to the overall pattern in West Africa. This observation aligns with a study conducted in Sub-Saharan Africa, which found that early sexual debut significantly increases the risk of developing vaginal fistula symptoms. @maheu-giroux_risk_2016 This supports the notion that early initiation of sexual activity is a critical risk factor for fistula prevalence in the region. (Appendix for detailed country data)
+
+Number_birth: In West Africa, the majority of women (53.94%) have three or fewer children, and this group has the highest prevalence of fistula at 1.38%. In Guinea-Bissau and Mali, the prevalence of fistula is nearly the same regardless of whether women have more or fewer children. However, the situation in Togo is different: 55.40% of women have four or more children, and this group has the highest fistula prevalence at 1.56%. The trends in other countries are similar to the overall pattern in West Africa. This suggests that while lower fertility rates are generally associated with higher fistula prevalence in West Africa, in some countries like Togo, higher fertility rates correspond to a greater risk. (Appendix for detailed country data)
+
+Contraception_use: In West Africa, the majority of women (80.98%) do not use any form of contraception, and this group has a fistula prevalence of 1.27%. A smaller percentage (15.51%) use modern medical methods of contraception, which is associated with a lower prevalence of 0.74%. In Nigeria, 5.27% of women use other forms of contraception, with a prevalence rate of 1.32%, but these women have a prevalence of 0%. Both modern contraception users and non-users in Nigeria exhibit very low prevalence rates of 0.24% and 0.21%, respectively. In Togo, the majority of women (83.23%) do not use contraception, and this group has the highest prevalence at 1.16%. In other countries, the trends are similar to the overall pattern in West Africa, where the highest prevalence is found among those using other, presumably less effective, forms of contraception, while those using modern medical methods have the lowest prevalence. This suggests that the type of contraception used may be associated with the risk of developing fistula, with less effective or traditional methods potentially leading to higher risks.
+
+=== MCA
+The relationships between the relevant variables are examined using Multiple Correspondence Analysis (MCA). The findings are provided in terms of how different variables contribute to the MCA's primary dimensions.
+#figure(
+  image("var_contrib_dim1.svg", width: 80%),
+  caption: [Variable Contributions to Dimension 1 (Dim-1)],
+)
+
+In the first dimension (Dim 1), the most significant contributing variables are residence, wealth, and delivery_place. This dimension prominently features upstream factors such as wealth and education, with both the wealthiest and poorest groups contributing significantly. Multiple levels of education also show notable contributions, indicating the broad impact of educational background. Downstream factors mainly encompass personal background aspects (residence) and access to medical services (delivery place, delivery professional).
+
+This analysis highlights the complex interplay between socioeconomic status and access to healthcare, illustrating how both upstream and downstream factors influence fistula in West Africa.
+
+#figure(
+  image("var_contrib_dim2.svg", width: 80%),
+  caption: [Variable Contributions to Dimension 2 (Dim-2)],
+)
+
+In the second dimension (Dim 2), the most significant contributing variables are number_birth and age. This dimension shows minor contributions from upstream factors such as occupation and education. Downstream factors primarily include personal background factor (age) and aspects related to family planning and sexual health (number_birth, age_sex). 
+
+This analysis highlights the importance of downstream factors such as number of births and age on fistula in West Africa
+
+== Bivariate Analysis
+In the bivariate analysis across West Africa, age and residence are not significantly associated with the outcome (p>0.05 ). Wealth, education, occupation, religion, distance, delivery_place, delivery_professional, postpartum_care, age_sex, number_birth and contraception_use show significant associations, highlighting their potential impact. The importance of these variables varies across countries. (see Appendix for details) Given the possibility of confounding, non-significant variables are also remained for multivariate analysis as they may still be important in interpreting the results.
+
+== Multivariate Analysis
+#figure(
+  caption: "West Africa: Regression Results",
+  table(
+    columns: (30%, auto, auto, auto, auto, auto),
+    align: left,
+    stroke: none,
+    table.hline(),
+    table.header([**Factor**], [**Intercept**], [**p-value**], [**CI: 2.5%**], [**CI: 97.5%**], [**Sig.**]),
+    table.hline(),
+    [age_sex2], [-0.49546], [0.014125], [-0.8911554], [-0.09976301], [\*],
+    [age_sex3], [0.89625], [0.00449], [0.2780767], [1.51443206], [\*\*],
+    [distance1], [0.31944], [0.004312], [0.1001024], [0.53878206], [\*\*],
+    [number_birth1], [-0.27143], [0.012871], [-0.4853154], [-0.05755219], [\*],
+    [religion2], [-0.42067], [0.021844], [-0.7802366], [-0.06111184], [\*],
+    [religion3], [-1.79006], [0.013989], [-3.217665], [-0.3624595], [\*],
+    [religion4], [-1.21644], [0.011397], [-2.1586797], [-0.27419727], [\*],
+    [religion5], [-10.80461], [< 2e-16], [-11.4875737], [-10.12164603], [\*\*\*],
+    [wealth2], [0.18812], [0.25666], [-0.1369319], [0.51316947], [ ],
+    [wealth3], [0.09739], [0.57146], [-0.2399269], [0.43471148], [ ],
+    [wealth4], [0.6331], [0.000199], [0.2996342], [0.96657001], [\*\*\*],
+    [wealth5], [0.60692], [0.001736], [0.2271354], [0.98670762], [\*\*],
+    [education1], [-0.46497], [0.00731], [-0.8047113], [-0.12523024], [\*\*],
+    [education2], [-0.75965], [8.67E-06], [-1.0943468], [-0.42494963], [\*\*\*],
+    [education3], [-0.89376], [0.020253], [-1.6482844], [-0.13923874], [\*],
+    [occupation1], [-0.08495], [0.50963], [-0.3374407], [0.16754566], [ ],
+    [occupation2], [-1.01591], [0.002794], [-1.6819106], [-0.34989941], [\*\*],
+    [contraception_use2], [0.64497], [0.000669], [0.2734097], [1.01653609], [\*\*\*],
+    [contraception_use3], [1.64405], [2.70E-11], [1.1605054], [2.12760273], [\*\*\*],
+    [delivery_place2], [0.02667], [0.905512], [-0.4136858], [0.46702299], [],
+    [delivery_place3], [0.43798], [0.000774], [0.182647], [0.69331302], [\*\*\*],
+    [delivery_professional2], [-10.31191], [< 2e-16], [-11.9478008], [-8.6760137], [\*\*\*],
+    [delivery_professional3], [-0.28544], [0.134665], [-0.6594178], [0.08853977], [ ],
+    [postpartum_care2], [-11.42399], [< 2e-16], [-12.3330881], [-10.51488996], [\*\*\*],
+    [postpartum_care3], [-1.1411], [< 2e-16], [-1.356798], [-0.92539472], [\*\*\*],
+  table.hline(),
+  )
+) <west-africa>
+
+According to the results from 'svyglm' (@west-africa), age_sex, distance, number_birth, religion, wealth, education, occupation, contraception_use, delivery_place, delivery_professional, and postpartum_care are significant (p-value < 0.05), indicating that these factors have an important impact on fistula.
+
+#figure(
+  caption: "Countries: Regression Results",
+  table(
+    columns: (30%, auto, auto, auto, auto, auto, auto),
+    align: left,
+    stroke: none,
+    table.hline(),
+    table.header([**Factor**], [**Cote d'Ivoire**], [**Guinea-Bissau**], [**Mali**], [**Nigeria**], [**Sierra Leone**], [**Togo**]),
+    table.hline(),
+    [age2], [ ], [ ], [ ], [ ], [ ], [< 2e-16],
+    [age3], [0.0255], [ ], [ ], [ ], [ ], [< 2e-16],
+    [age4], [ ], [ ], [ ], [ ], [ ], [< 2e-16],
+    [age5], [ ], [ ], [ ], [ ], [ ], [< 2e-16],
+    [age6], [ ], [ ], [ ], [< 2e-16], [ ], [< 2e-16],
+    [age7], [< 2e-16], [ ], [ ], [< 2e-16], [0.046886], [< 2e-16],
+    [age_sex2], [ ], [ ], [ ], [ ], [< 2e-16], [ ],
+    [distance1], [ ], [0.04986], [ ], [ ], [ ], [0.0201],
+    [number_birth1], [ ], [ ], [ ], [ ], [0.000264], [0.0492],
+    [religion2], [ ], [ ], [< 2e-16], [ ], [0.044288], [ ],
+    [religion3], [< 2e-16], [< 2e-16], [ ], [< 2e-16], [ ], [ ],
+    [religion4], [< 2e-16], [< 2e-16], [ ], [ ], [< 2e-16], [ ],
+    [religion5], [< 2e-16], [ ], [ ], [< 2e-16], [ ], [ ],
+    [wealth2], [ ], [ ], [0.00933], [ ], [ ], [ ],
+    [wealth3], [ ], [ ], [0.03844], [0.03682], [ ], [ ],
+    [wealth4], [ ], [ ], [0.03663], [0.0149], [0.029268], [ ],
+    [wealth5], [ ], [ ], [0.04353], [0.00661], [ ], [0.04],
+    [education1], [ ], [ ], [ ], [0.02263], [ ], [ ],
+    [education2], [ ], [ ], [0.00925], [ ], [ ], [< 2e-16],
+    [education3], [ ], [ ], [0.00397], [ ], [ ], [< 2e-16],
+    [occupation1], [ ], [ ], [ ], [ ], [0.01499], [ ],
+    [occupation2], [< 2e-16], [ ], [ ], [ ], [ ], [5.1e-05],
+    [contraception_use2], [ ], [ ], [ ], [ ], [0.000644], [ ],
+    [contraception_use3], [ ], [0.00886], [0.01602], [< 2e-16], [< 2e-16], [< 2e-16],
+    [delivery_place3], [ ], [0.0054], [0.03597], [ ], [0.000321], [ ],
+    [delivery_professional2], [< 2e-16], [ ], [ ], [ ], [ ], [ ],
+    [postpartum_care2], [< 2e-16], [ ], [ ], [ ], [ ], [ ],
+    [postpartum_care3], [ ], [2.54e-07], [ ], [ ], [< 2e-16], [ ],
+  table.hline(),
+  )
+) <country-table>
+
+From the @country-table, it is evident that significant factors vary across different countries.
+
+Cote d'Ivoire: In Cote d'Ivoire, the significant factors include age, religion, occupation, delivery_professional, and postpartum_care. Compared to West Africa as a whole, only occupation stands out as an upstream factor, while the downstream factors are more concentrated on personal background and healthcare services.
+
+Guinea-Bissau: In Guinea-Bissau, the significant factors are distance, religion, contraception_use, delivery_place, and postpartum_care. Unlike West Africa overall, Guinea-Bissau has no significant upstream factors. The downstream factors are mainly related to personal background, sexual health, and healthcare services, indicating that these aspects have a stronger influence in this country.
+
+Mali: In Mali, the significant factors include religion, wealth, occupation, contraception_use, and delivery_place. The upstream factors wealth and occupation highlight the influence of economic status and employment, while the downstream factors relate to personal background, sexual health, and healthcare services.
+
+Nigeria: In Nigeria, age, religion, wealth, education, and contraception_use are significant. Compared to West Africa overall, Nigeria's significant upstream factors include wealth and education, while the downstream factors focus on personal background and sexual health. This suggests that education and economic status play a more prominent role in the risk of fistula in Nigeria.
+
+Sierra Leone: In Sierra Leone, the significant factors include age, age_sex, number_birth, religion, wealth, occupation, contraception_use, delivery_place, and postpartum_care. Compared to other countries, Sierra Leone has the most significant factors, with wealth and occupation as upstream factors and personal background, sexual health, and healthcare services as downstream factors, reflecting a more complex set of influences on fistula risk.
+
+Togo: In Togo, the significant factors are age, distance, number_birth, wealth, education, occupation, and contraception_use. Compared to other countries, Togo has a more complete set of upstream factors. The downstream factors encompass personal background, sexual health, and healthcare services, showing a broad range of influences on fistula risk.
+
+Overall, the significant factors in West Africa cover a wide range of socio-economic, personal background, medical services, family planning, and sexual health influences, indicating their widespread impact across the region. However, at the country level, the distribution of significant factors between upstream and downstream varies. For instance, Cote d'Ivoire and Guinea-Bissau have significant factors more concentrated on downstream factors like healthcare and sexual health, while countries like Nigeria and Mali are more affected by upstream factors like economic status and education. Sierra Leone and Togo exhibit a broader range of significant factors, encompassing both upstream and downstream factors, indicating a more complex set of causes for fistula risk. Therefore, in developing preventive strategies, it is crucial to consider the specific significant factors in each country to create more targeted and effective interventions.
+
+== Exploring Upstream and Downstream Interactions
+Exploring upstream and downstream interactions across West Africa to gain a deeper understanding of factors influencing fistula. The larger sample size in the West African dataset provides a more reliable foundation for analysis. Downstream factors are identified from the significant variables in the model. The final model is then used to further analyze the significant interaction terms.
+=== Wealth
+The interaction between wealth and delivery_professional suggests that occasional assistance significantly reduces the risk of adverse outcomes such as fistula, especially for wealthier women. Statistics show that the coefficients for wealth groups 2, 3, and 5 are -11.01, -10.78, and -11.81, respectively, and the p-values are extremely low (all between 4.36E-15 and < 2e-16), indicating that this effect is highly significant. This means that although wealthier women may have more access to continuous care, they still benefit from any form of professional assistance. This suggests that it is critical to ensure that all women receive some professional care during childbirth, regardless of their wealth.
+
+The interaction between wealth and first sexual intercourse during cohabitation also shows a significant protective effect against fistula, particularly for wealthier women (coefficient: -13.10371, p-value: < 2e-16). This suggests that wealth and the timing of sexual behavior together reduce the risk of adverse outcomes.
+
+The interaction between wealth and religion shows Animists experience significant variations in fistula risk based on wealth levels. Specifically, Animists with pooer wealth face a substantially higher risk of fistula (coefficient = 13.85746, p < 2e-16), while those in higher wealth brackets show a significantly lower risk across multiple levels, like wealth4 (coefficient = -14.90821, p < 2e-16). This indicates that wealth serves as a crucial upstream factor that indirectly affects fistula risk by significantly altering risk levels for Animists. For other religious groups, the relationship is less pronounced, emphasizing the unique impact of wealth on fistula risk within the Animist community.
+
+In conclusion, the impact of wealth on fistula prevalence in West Africa is complex. It is similar to findings in Ethiopia where the wealthiest women had a prevalence of 26.3% compared to 13.2% for the poorest. @andargie_determinants_2017 Wealth, as an upstream factor, can also indirectly influence fistula prevalence by affecting downstream factors like postpartum care. This underscores the importance of addressing both direct and indirect pathways through which socioeconomic status impacts health outcomes in the region.
+
+=== Education
+The interaction analysis reveals that education significantly moderates the risk of fistula associated with the timing of first sexual intercourse. Women who experienced their first sexual intercourse at the time of cohabitation, with either secondary education (coefficient = -12.45415, p < 2e-16) or higher education (coefficient = -11.42680, p < 2e-16), show a markedly lower risk of fistula compared to those without education. This indicates that education acts as a strong protective factor, effectively reducing the risks associated with sexual initiation at cohabitation. Notably, secondary education has a slightly stronger effect, suggesting that education at this level may be particularly influential in mitigating fistula risk. Overall, these findings highlight how education may reduce the risk of fistula by influencing the downstream factor of age_sex.
+
+The interaction between education and delivery_place reveals that higher education significantly reduces fistula risk, particularly for women who occasionally deliver in health facilities (interaction coefficient = -12.2334, p < 2e-16). This suggests that higher education enhances women's ability to manage health risks even with variable access to delivery services. This indicates that how upstream factors like education can influence downstream outcomes such as fistula risk through their effects on healthcare utilization.
+
+The interaction between distance and education shows that women with primary education who perceive distance as a significant problem have a significantly lower risk of fistula (coefficient = -0.9807, p = 0.0045). This suggests that upstream factors like education help mitigate the negative impact of downstream factors such as access to healthcare, reducing fistula risk. However, the protective effect of education diminishes at higher levels, as secondary and higher education do not significantly alter the risk associated with distance. These findings highlight how basic education can indirectly reduce fistula risk by enabling better navigation of healthcare challenges.
+
+The interaction between religion and education shows that higher education levels significantly reduce the risk of fistula for most religious groups, particularly among Animist (coefficient = -11.4957, p < 2e-16) and No religion women (coefficient = -12.3696, p < 2e-16) with primary education. For these groups, the protective effect of education increases with higher levels of schooling. This highlights the protective role of education in mitigating the effects of certain religious affiliations on fistula risk.
+
+The analysis of West Africa indicates that education significantly impacts the prevalence of fistula, a finding consistent with previous studies. For instance, research in Ethiopia revealed that uneducated women have the highest prevalence of obstetric fistula (19.4%). Additionally, women who delivered at home had the highest prevalence of fistula (20.5%) @andargie_determinants_2017 Similarly, a study across 14 African countries found that women with secondary and higher education levels have a 41% and 60% lower risk of developing obstetric fistula, respectively. Furthermore, this research finds that education influences fistula prevalence through its interaction with postpartum care is supported by the same study across 14 African countries, which highlights that educated women are more likely to utilize maternal health services, thereby reducing their risk of fistula. @alie_counting_2021 This shows that education has an impact not just on the prevalence of fistula, but also on health outcomes through interactions with downstream determinants.
+
+=== Occupation
+The interaction between occupation and postpartum care shows that working women who never received postpartum care have a significantly lower risk of fistula (coefficient = -0.8015, CI= -1.3121  -0.2909), since the main effect of being employed showing an increased risk (coefficient = 0.3318, CI= -0.0695, 0.7331). This suggests that upstream factors like occupation, when combined with downstream factors such as lack of postpartum care, influence fistula risk in unexpected ways. In contrast, occasional postpartum care has no significant impact on the risk for working women.
+
+The interaction between occupation and contraceptive_use reveals that women in the "Don't know" employment category who use other contraceptive methods experience a significantly lower risk of fistula (coefficient = -13.7277, CI= -15.9423 -11.5131). This suggests that in this group, using non-modern methods is associated with a reduced risk, highlighting the complex relationship between upstream factors like occupation and downstream factors like contraceptive choices.
+
+The interaction between religion and occupation shows that women who identify as Animist and are working have a significantly higher risk of fistula (coefficient = 12.06, p < 2e-16), as do those with no religion who are working (coefficient = 12.75, p < 2e-16). This suggests that upstream factors like occupation, combined with downstream cultural or religious practices, significantly increase health risks for these groups. These findings highlight the critical role of both cultural and socio-economic factors in influencing fistula prevalence.
+
+These analyzes highlight interactions between occupation and downstream factors. The differences in the impact of different factors indicate that specific socioeconomic and cultural backgrounds, as well as medical services and other factors need to be comprehensively considered when formulating interventions for fistulas.
 
 = Discussion
+== Findings
+=== Upstream Factors
+The analysis shows that upstream factors (wealth, education, occupation) play a significant role in influencing fistula prevalence across West Africa. Wealth distribution presents a unique pattern where wealthier women generally experience a higher prevalence of fistula, despite the poorest groups having a slightly larger population share. Education is a critical factor, with uneducated women showing the highest prevalence overall, and a clear trend of lower fistula risk with higher education, though exceptions exist in some countries. In terms of occupation, non-working women face a higher prevalence of fistula compared to their employed counterparts across the region. These findings emphasize the direct influence of upstream socioeconomic factors on fistula risk, highlighting the importance of addressing wealth disparities, improving education access, and supporting women's employment as part of broader efforts to reduce fistula prevalence in West Africa.
 
-= Conclusion
+=== Downstream Factors
+While age and residence are recognized in the literature as influential factors, in West Africa overall, they do not significantly affect fistula prevalence. However, age shows important influence in certain countries like Nigeria, Sierra Leone, and Togo, where younger or older women are more at risk. Conversely, residence does not significantly impact fistula prevalence either in the region or in individual countries.
+
+Postpartum care, place of delivery, distance to medical facilities, and professional delivery assistance are significant factors influencing fistula risk in West Africa. Interestingly, women who consistently receive postpartum care or deliver in health facilities tend to have higher prevalence rates, possibly due to underlying complications that require medical intervention.
+
+In the domain of family planning and sexual health, contraception use, age of first sexual intercourse, and total births are significant factors. Women who use modern contraception methods show lower fistula prevalence, while those who begin sexual activity at younger ages or have more children face higher risks. These findings emphasize the critical role of sexual health education and access to family planning in reducing fistula prevalence across West Africa.
+
+=== Interactions
+Wealth significantly influences the risk of fistula through interactions with various factors. Wealthier women benefit from any professional care during childbirth, reducing their risk of fistula. Additionally, wealth combined with the timing of first sexual intercourse (during cohabitation) shows a strong protective effect, particularly for wealthier women. Wealth also interacts with religion, notably affecting Animists, where lower wealth levels increase the risk of fistula, while higher wealth levels reduce it.
+
+Education plays a crucial role in moderating fistula risk. Women with secondary or higher education who experienced their first sexual intercourse during cohabitation have a markedly lower risk of fistula. Education also interacts with healthcare access: higher education reduces fistula risk even with variable access to health facilities. Basic education mitigates the negative impact of distance on healthcare access, while the protective effect of higher education diminishes in this context. In addition, the Tostan program in West Africa raised women's health risk awareness and effectively prevented fistula through community education. @noauthor_obstetric_2005 Overall, education influences fistula risk through its effects on sexual behavior and healthcare utilization.
+
+The interaction between occupation and postpartum care shows that working women without postpartum care have a lower risk of fistula, contrary to the general increased risk associated with occupation. Additionally, women in the "Don't know" employment category who use non-modern contraceptive methods experience a lower risk of fistula. The interaction between occupation and religion reveals that working Animists and those with no religion face a higher risk of fistula, indicating that occupation and religion or sexual health factors jointly affect fistula.
+
+=== Country Variations
+The prevalence of fistula across West Africa reveals a significant variation, with overall rates ranging from 0.20% in Nigeria to 4.60% in Guinea-Bissau. This difference emphasizes significant regional differences in fistula risk. While West Africa as a whole shows a diverse set of influential factors, individual countries highlight different aspects of this complex issue.
+
+In general, upstream factors (wealth, education, occupation) play crucial roles in influencing fistula risk across the region. However, the impact of these factors varies by country. For instance, Nigeria and Mali show an obvious  influence of economic status and education, whereas countries like Guinea-Bissau and Cote d'Ivoire emphasize the role of downstream factors such as healthcare access and personal background.
+
+These findings indicate that while some factors have widespread significance across West Africa, specific interventions are necessary to address the specific influences of each country.
+
+== Research Contributions
+This research makes important contributions to the existing literature on fistula prevalence in West Africa. First, this research systematically explored upstream and downstream factors that affect fistula risk in the region, revealing in depth how socioeconomic levels and other variables work together to influence the occurrence of fistula. This research analyzes multiple dimensions, thereby providing a more comprehensive understanding of the determinants of fistula. In addition, it also deeply analyzed regional differences among West African countries, exploring not only the influencing factors throughout West Africa, but also identifying unique risk factors for each country, reflecting the breadth and meticulousness of the study.
+
+Another notable contribution is the development of a data visualization dashboard that allows for more effective exploration of fistula prevalence in the West African region and across different countries. This makes the data more understandable, and researchers and policymakers can develop more effective fistula prevention policies through the exploration of the dashboard.
+
+== Policy Suggestions
+Although wealth is generally associated with better health care, this research found that women with higher wealth have a higher prevalence of fistula. This suggests that even women with better economic conditions may face potential medical risks. Policymakers should conduct in-depth research on the health behaviors of high-income women. In addition, the interaction between wealth and religion has an important impact on fistula risk, like Animists. Policies should combine religious beliefs and economic status to develop comprehensive intervention measures.
+
+Education is closely associated with fistula risk, with the highest fistula prevalence in mostly uneducated women in West Africa. Policies should focus on and promote female education. At the same time, there was a significant interaction between education and age at sexual intercourse. This suggests that sexual health education can be strengthened in schools to improve women's awareness of fistula risks.
+
+The higher prevalence of fistula among non-working women suggests that policies need to further encourage women to work. Policymakers can promote women's employment by providing more jobs.
+
+
+== Limitations
+Accuracy of Self-reported Data:
+Using the question "Have ever experienced a problem of leakage of urine or stool from vagina" from the DHS data to infer the prevalence of fistula has limitations, as it is not based on medical diagnosis. This self-reporting approach may lead to an over- or underestimation of the actual prevalence of fistula, thereby affecting the accuracy of the results.
+
+Data Missingness:
+Due to some respondents skipping certain questions in the DHS questionnaire, a large number of samples had to be removed during the data preprocessing stage. This missing data may introduce potential bias, especially after the sample size is reduced, making the analysis results less representative of the general population.
+
+Time Differences in Data Collection:
+The dataset from Togo is from 2013, while the data from other countries is from 2018, 2019, and 2021. This time difference was not specifically considered in the analysis and may lead to a certain degree of bias, as social, economic, and healthcare conditions could have changed during these years. Therefore, the time difference may affect the accuracy of comparisons and introduce uncertainty to the results.
+
+Data Imbalance:
+The proportion of fistula cases in the dataset is extremely low, making the dataset highly imbalanced. Even though Survey-weighted Generalized Linear Models (svyglm) were used to account for the complex survey design, this imbalance may still result in the model being biased towards the majority class, affecting the robustness and interpretability of the results.
+
+== Future Research Directions
+
+Future studies should focus on how stigma affects fistula patients.
+@changole_i_2017 It is vital to treat not only the medical disease, but also any
+psychological issues that occur. For example, research can focus on eliminating
+misconceptions that contribute to stigma. @roush_social_2009
+@bashah_consequences_2018 Research might also be undertaken on how to
+successfully reintegrate into society. @khisa_understanding_2017 Furthermore,
+prevention measures for fistulas should better identify specific risk factors in
+different countries. @tebeu_risk_2012 West African countries urgently require
+efficient national fistula treatment and prevention initiatives.
+@noauthor_towards_2022 When developing strategies, consider close integration
+with the Sustainable Development Goals. @slinger_obgyn_2020
+
+Future research should prioritize not only the medical treatment of fistula patients but also consider the psychological and social dimensions, such as how stigma affects affected women. Previous studies have shown that stigma often exacerbates the emotional and mental health challenges faced by fistula patients. @changole_i_2017 Research can focus on identifying and eliminating the misconceptions that contribute to stigma, which is crucial for improving the quality of life for these women. @roush_social_2009 @bashah_consequences_2018 Additionally, how these women reintegrate into society should be a key area of study, as stigma and isolation often hinder their successful reintegration. @khisa_understanding_2017
+
+Fistula prevention should also be a priority, especially in regions such as West Africa, where socioeconomic and healthcare settings vary widely across countries. @tebeu_risk_2012 In addition, West African countries urgently need to develop effective national fistula treatment and prevention measures. @noauthor_towards_2022 In developing such strategies, it is important to integrate these efforts with the Sustainable Development Goals, particularly improving maternal health and reducing health inequalities. @slinger_obgyn_2020
+
+In addition, future research should also focus on solving the common data imbalance problem in fistula research. Since fistula cases account for a very small proportion of the data, research should explore more appropriate methods to handle imbalanced datasets to improve the performance of the model and the reliability of the results.
+
+== Conclusions
+This research offers important insights into the prevalence and determinants of fistula in women of reproductive age across West Africa, emphasizing the critical role of both upstream and downstream factors. The findings reveal that while wealthier women surprisingly face higher fistula risks, education remains a key protective factor, with uneducated women experiencing the highest prevalence of fistula. Furthermore, the research highlights significant national variations, stressing the need for targeted interventions in different regions.
+
+A notable contribution of this research is the development of a data visualization dashboard, which allows for more effective exploration and understanding of fistula prevalence across the region. This tool enhances both research and policy-making by making the data more accessible and actionable.
+
+Despite these contributions, the study has several limitations, including data imbalance and the reliance on self-reported data, which may affect the accuracy of the results. Additionally, the differences in data collection periods across countries, such as Togo's earlier dataset, may introduce some bias in comparisons.
+
+Future research should address these limitations, focusing on stigma-related issues, the reintegration of fistula survivors into society, and the development of more robust methods to handle data imbalance. Moreover, it is crucial to prioritize prevention strategies that are tailored to the specific needs of each country, integrating these efforts with broader global initiatives to improve the health of women of reproductive age.
 
 #bibliography("fistula1.bib")

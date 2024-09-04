@@ -1,0 +1,46 @@
+variable,category,,frequency,proportion(%),prevalence
+age,1,15-19 Years,3094.796097,7.857345338,1.43%
+age,2,20-24 Years,8301.823514,21.07741261,1.23%
+age,3,25-29 Years,10049.33822,25.51415936,1.20%
+age,4,30-34 Years,7941.181142,20.16178148,1.17%
+age,5,35-39 Years,6140.566541,15.59021996,1.29%
+age,6,40-44 Years,2814.621375,7.146012676,1.26%
+age,7,45-49 Years,1044.972053,2.653068581,1.67%
+age_sex,1,First Sexual Intercours (8-19 Years),34633.883,87.93160216,1.30%
+age_sex,2,First Sexual Intercours (20-49 Years),4139.137278,10.5088122,0.76%
+age_sex,3,at the time of first cohabitatio,614.278658,1.559585639,1.57%
+number_birth,0,Three or Fewer Children,21243.75648,53.93555043,1.38%
+number_birth,1,Four or More Children,18143.54245,46.06444957,1.10%
+religion,1,Muslim,28051.66137,71.22006871,1.43%
+religion,2,Christian,10025.26273,25.45303435,0.86%
+religion,3,Animist,697.303117,1.770375567,0.31%
+religion,4,No Religion,574.71992,1.459150375,0.57%
+religion,5,Other Religions,38.351803,0.09737099,0.00%
+residence,1,Urban,13723.77161,34.84313975,1.42%
+residence,2,Rural,25663.52732,65.15686025,1.16%
+wealth,1,Poorest,9039.513606,22.95032625,0.99%
+wealth,2,Poore,8762.74839,22.24764994,1.19%
+wealth,3,Middle,7939.324053,20.15706653,1.05%
+wealth,4,Richer,7254.626662,18.41869551,1.69%
+wealth,5,Richest,6391.086228,16.22626176,1.44%
+education,0,No education,23139.22972,58.74794754,1.47%
+education,1,Primary Education,5834.647798,14.81352607,1.06%
+education,2,Secondary Education,8682.056859,22.04278306,0.88%
+education,3,Higher Education,1731.364564,4.395743325,0.77%
+occupation,0,Not Working,7745.66353,19.66538386,1.64%
+occupation,1,Working,27801.09185,70.58390039,1.27%
+occupation,2,Don't Know,3840.54356,9.750715747,0.33%
+contraception_use,1,Modern Medical Methods,6110.667509,15.51430962,0.74%
+contraception_use,2,No Contraception Use,31896.61951,80.98199258,1.27%
+contraception_use,3,Other Contraception Use,1380.011924,3.503697794,3.12%
+delivery_place,1,Never Delivered in Health Facility,14590.15446,37.04279007,0.94%
+delivery_place,2,Occasionally Delivered in Health Facility,2333.545314,5.924613713,1.07%
+delivery_place,3,Always Delivered in Health Facility,22463.59917,57.03259622,1.47%
+distance,0,Not a Big Problem,24390.39614,61.92452084,1.12%
+distance,1,A Big Problem,14996.9028,38.07547916,1.46%
+delivery_professional,1,Always Had Professional Assistance,33209.69241,84.31573961,1.36%
+delivery_professional,2,Occasionally Had Professional Assistance,7.686172,0.019514341,0.00%
+delivery_professional,3,Never Had Professional Assistance,6169.920356,15.66474605,0.67%
+postpartum_care,1,Always Received Postpartum Care,10142.28728,25.75014676,2.54%
+postpartum_care,2,Occasionally Received Postpartum Care,9.227528,0.023427674,0.00%
+postpartum_care,3,Never Received Postpartum Care,29235.78413,74.22642557,0.80%

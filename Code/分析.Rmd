@@ -76,7 +76,91 @@ str(data1)
 
 ```
 
+```{r}
+data1$religion <- factor(data1$religion)
+data1$wealth <- factor(data1$wealth)
+data1$education <- factor(data1$education)
+data1$occupation <- factor(data1$occupation)
+data1$residence <- factor(data1$residence)
+data1$contraception_use <- factor(data1$contraception_use)
+data1$delivery_place <- factor(data1$delivery_place)
+data1$delivery_professional <- factor(data1$delivery_professional)
+data1$postpartum_care <- factor(data1$postpartum_care)
+data1$age <- factor(data1$age)
+data1$age_sex <- factor(data1$age_sex)
+data1$distance <- factor(data1$distance)
+data1$number_birth <- factor(data1$number_birth)
+data1$experienced_fistula <- factor(data1$experienced_fistula)
+```
+
 1.2 Descriptive Statistical Analysis
+```{r}
+# --------------------------------------------------------
+# Processing weight
+library(survey)
+
+# Calculate descriptive statistics
+variables <- c("experienced_fistula", "age", "age_sex", "number_birth", "religion", 
+               "residence", "wealth", "education", "occupation", 
+               "contraception_use", "delivery_place", "distance",
+               "delivery_professional", "postpartum_care")
+
+# DHS weights need to be divided by 1,000,000
+data_design <- data1 %>% mutate(weight = V005 / 1000000)  
+dhs_design <- svydesign(id = ~1, weights = ~weight, data = data_design)
+
+# 描述性统计分析适用于分类变量
+summary_categorical <- function(dhs_design, variable) {
+  formula <- as.formula(paste("~", variable))
+  freq <- svytable(formula, dhs_design)  # 计算频数
+  prop <- svymean(formula, dhs_design, na.rm = TRUE)  # 计算百分比
+  
+  data.frame(
+    variable = variable,
+    category = names(freq),
+    frequency = as.vector(freq),
+    proportion = 100 * as.vector(prop)  # 转换为百分比
+  )
+}
+
+# 计算分类变量的描述性统计量
+categorical_summary_list <- lapply(variables, function(var) {
+  summary_categorical(dhs_design, var)})
+
+categorical_summary_df <- bind_rows(categorical_summary_list)
+
+print(categorical_summary_df)
+
+```
+
+```{r}
+# 安装并加载必要的包
+library(ggplot2)
+library(dplyr)
+
+# 创建绘图函数，并在条形图上显示百分比
+plot_categorical <- function(categorical_summary_df, variable_name) {
+  plot_data <- categorical_summary_df[categorical_summary_df$variable == variable_name, ]
+  
+  ggplot(plot_data, aes(x = category, y = proportion)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes(label = sprintf("%.1f%%", proportion)), vjust = -0.5, size = 3) +  # 显示百分比值
+    labs(title = paste("Percentage of", variable_name), x = variable_name, y = "Percentage") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))  # 如果类别标签较长，可以旋转标签
+}
+
+# 为所有变量绘制百分比条形图并直接打印
+lapply(variables, function(var) {
+  p <- plot_categorical(categorical_summary_df, var)
+})
+
+
+
+```
+
+
+
 
 ```{r}
 # --------------------------------------------------------

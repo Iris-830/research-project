@@ -1,0 +1,391 @@
+```{r}
+# --------------------------------------------------------
+# clear the environment var area
+rm(list = ls())
+# clear all plots
+graphics.off()
+# clear the console area
+cat("\014")
+```
+
+```{r}
+# --------------------------------------------------------
+library(haven)
+library(dplyr)
+# read sav file
+data.origin = read_sav('/Users/qimiao/Desktop/7.28/Data.sav')
+
+# --------------------------------------------------------
+# Delete missing values in target rows
+
+data_clean <- data.origin %>% filter(!is.na(experienced_fistula))
+
+# --------------------------------------------------------
+# Cross-analysis using xtabs
+cross_tab <- xtabs(~ country + experienced_fistula, data = data_clean)
+print(cross_tab)
+
+# If fewer than 50 people answered "Yes" to experienced_fistula for a particular country, the data may not be statistically representative and may not provide enough information for reliable analysis.
+# Therefore, removing these countries.
+
+# Removing BurkinaFaso, Gambia and Niger
+data_clean <- data_clean %>%
+  filter(!(country %in% c("BurkinaFaso", "Gambia", "Niger")))
+
+# --------------------------------------------------------
+#See the missing value
+library(naniar)
+gg_miss_var(data_clean)
+
+# --------------------------------------------------------
+# Selecting specific variables
+selected_columns <- c(
+  "experienced_fistula",
+  "country",
+  "V005",
+  "age",
+  "distance",
+  "age_sex",
+  "number_birth",
+  "religion",
+  "residence",
+  "wealth",
+  "education",
+  "occupation",
+  "contraception_use",
+  "delivery_place",
+  "delivery_professional",
+  "postpartum_care"
+)
+
+# Create a new data frame
+data_selected <- data_clean[, selected_columns]
+
+# Delete rows with missing values
+data1 <- na.omit(data_selected)
+
+# View the dataset
+head(data1)
+
+# View the structure of the dataset
+str(data1)
+```
+```{r}
+data1$religion <- factor(data1$religion)
+data1$wealth <- factor(data1$wealth)
+data1$education <- factor(data1$education)
+data1$occupation <- factor(data1$occupation)
+data1$residence <- factor(data1$residence)
+data1$contraception_use <- factor(data1$contraception_use)
+data1$delivery_place <- factor(data1$delivery_place)
+data1$delivery_professional <- factor(data1$delivery_professional)
+data1$postpartum_care <- factor(data1$postpartum_care)
+data1$age <- factor(data1$age)
+data1$age_sex <- factor(data1$age_sex)
+data1$distance <- factor(data1$distance)
+data1$number_birth <- factor(data1$number_birth)
+```
+
+```{r}
+# Bivariate Analysis
+# Variables that need bivariate analysis
+variables <- c("age", "age_sex", "distance", "number_birth", "religion", "residence", 
+               "wealth", "education", "occupation", "contraception_use", 
+               "delivery_place", "delivery_professional", "postpartum_care")
+
+# Scaling Weights
+data1$V005_scaled <- data1$V005 / 1000000
+
+# Design Factors
+svydesign_overall <- svydesign(id = ~1, strata = ~country, weights = ~V005_scaled, data = data1)
+
+# Define a function
+bivariate_analysis <- function(variable, svydesign_overall) {
+  formula <- as.formula(paste("experienced_fistula ~", variable))
+  
+  # Regression analysis
+  glm_result <- svyglm(formula, design = svydesign_overall, family = quasibinomial())
+  
+  # Chi-square test
+  chisq_result <- svychisq(as.formula(paste("~", variable, "+ experienced_fistula")), design = svydesign_overall)
+  list(glm = summary(glm_result), chisq = chisq_result)
+}
+
+# Perform bivariate analysis on each variable
+bivariate_results <- lapply(variables, function(var) {
+  cat("\n--- Bivariate Analysis:", var, "---\n")
+  result <- bivariate_analysis(var, svydesign_overall)
+  print(result$glm)
+  
+  cat("\nChi-Square Test (svychisq) Result:\n")
+  print(result$chisq)
+  
+  return(result)
+})
+
+```
+
+
+
+```{r}
+library(survey)
+library(car)
+
+# 普通的glm模型，用于计算VIF
+glm_simple <- glm(experienced_fistula ~ age + age_sex + distance + number_birth +
+                         religion + residence + wealth + education + occupation + 
+                         contraception_use + delivery_place + delivery_professional +
+                         postpartum_care,
+                       data = data1, 
+                       family = quasibinomial())
+
+# 计算并打印VIF值
+vif_values <- vif(glm_simple)
+print(vif_values)
+
+```
+
+```{r}
+# 对完整的数据集进行整体回归分析
+
+# 使用 svyglm 进行整体加权回归分析
+glm_overall <- svyglm(experienced_fistula ~ age + age_sex + distance + number_birth +
+                        religion + residence + wealth + education + occupation + 
+                        contraception_use + delivery_place + delivery_professional+
+                        postpartum_care,
+                      design = svydesign_overall, 
+                      family = quasibinomial())
+
+summary(glm_overall)
+
+# Calculate AIC
+AIC(glm_overall)
+```
+
+```{r}
+# Calculate confidence intervals
+conf_intervals <- confint(glm_overall)
+print(conf_intervals)
+
+```
+
+```{r}
+# 使用 svyglm 进行整体加权回归分析
+glm_final <- svyglm(experienced_fistula ~ age_sex + distance + number_birth +
+                        religion + wealth + education + occupation + 
+                        contraception_use + delivery_place + delivery_professional +
+                        postpartum_care,
+                      design = svydesign_overall, 
+                      family = quasibinomial())
+
+# 打印整体回归分析的结果
+summary(glm_final)
+
+
+# 计算 AIC
+AIC(glm_final)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_final)
+print(conf_intervals)
+```
+
+```{r}
+#wealth*delivery_professional
+glm_wealth1 <- svyglm(experienced_fistula ~ age_sex + distance + number_birth +
+                        religion + wealth + education + occupation + 
+                        contraception_use + delivery_place + delivery_professional+
+                        postpartum_care + wealth*delivery_professional,
+                      design = svydesign_overall, 
+                      family = quasibinomial())
+
+summary(glm_wealth1)
+
+# Calculate AIC
+AIC(glm_wealth1)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_wealth1)
+print(conf_intervals)
+```
+
+
+```{r}
+#wealth*age_sex
+glm_wealth2 <- svyglm(experienced_fistula ~ age_sex + distance + number_birth +
+                        religion + wealth + education + occupation + 
+                        contraception_use + delivery_place + delivery_professional+
+                        postpartum_care + wealth*age_sex,
+                      design = svydesign_overall, 
+                      family = quasibinomial())
+
+summary(glm_wealth2)
+
+# Calculate AIC
+AIC(glm_wealth2)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_wealth2)
+print(conf_intervals)
+```
+
+```{r}
+#wealth*religion
+glm_wealth3 <- svyglm(experienced_fistula ~ age_sex + distance + number_birth +
+                        religion + wealth + education + occupation + 
+                        contraception_use + delivery_place + delivery_professional+
+                        postpartum_care + wealth*religion,
+                      design = svydesign_overall, 
+                      family = quasibinomial())
+
+summary(glm_wealth3)
+
+# Calculate AIC
+AIC(glm_wealth3)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_wealth3)
+print(conf_intervals)
+```
+
+
+
+```{r}
+# education*delivery_place
+glm_education1 <- svyglm(experienced_fistula ~ age_sex + distance + number_birth +
+                       religion + wealth + education + occupation + 
+                       contraception_use + delivery_place + delivery_professional+
+                       postpartum_care + education*delivery_place,
+                     design = svydesign_overall, 
+                     family = quasibinomial())
+
+summary(glm_education1)
+
+# Calculate AIC
+AIC(glm_education1)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_education1)
+print(conf_intervals)
+```
+
+```{r}
+# education*age_sex
+glm_education2 <- svyglm(experienced_fistula ~ age_sex + distance + number_birth +
+                       religion + wealth + education + occupation + 
+                       contraception_use + delivery_place + delivery_professional+
+                       postpartum_care + education*age_sex,
+                     design = svydesign_overall, 
+                     family = quasibinomial())
+
+summary(glm_education2)
+
+# Calculate AIC
+AIC(glm_education2)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_education2)
+print(conf_intervals)
+```
+
+
+```{r}
+# education*distance
+glm_education3 <- svyglm(experienced_fistula ~ age_sex + distance + number_birth +
+                       religion + wealth + education + occupation + 
+                       contraception_use + delivery_place + delivery_professional+
+                       postpartum_care + education*distance,
+                     design = svydesign_overall, 
+                     family = quasibinomial())
+
+summary(glm_education3)
+
+# Calculate AIC
+AIC(glm_education3)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_education3)
+print(conf_intervals)
+```
+
+```{r}
+# education*religion
+glm_education4 <- svyglm(experienced_fistula ~ age_sex + distance + number_birth +
+                       religion + wealth + education + occupation + 
+                       contraception_use + delivery_place + delivery_professional+
+                       postpartum_care + education*religion,
+                     design = svydesign_overall, 
+                     family = quasibinomial())
+
+summary(glm_education4)
+
+# Calculate AIC
+AIC(glm_education4)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_education4)
+print(conf_intervals)
+```
+
+
+
+```{r}
+# occupation*postpartum_care
+glm_occupation1 <- svyglm(experienced_fistula ~ age_sex + distance + number_birth +
+                           religion + wealth + education + occupation + 
+                           contraception_use + delivery_place + delivery_professional+
+                           postpartum_care + occupation*postpartum_care,
+                         design = svydesign_overall, 
+                         family = quasibinomial())
+
+summary(glm_occupation1)
+
+# Calculate AIC
+AIC(glm_occupation1)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_occupation1)
+print(conf_intervals)
+```
+
+```{r}
+# occupation*contraception_use
+glm_occupation2 <- svyglm(experienced_fistula ~ age_sex + distance + number_birth +
+                           religion + wealth + education + occupation + 
+                           contraception_use + delivery_place + delivery_professional+
+                           postpartum_care + occupation*contraception_use,
+                         design = svydesign_overall, 
+                         family = quasibinomial())
+
+summary(glm_occupation2)
+
+# Calculate AIC
+AIC(glm_occupation2)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_occupation2)
+print(conf_intervals)
+```
+
+```{r}
+# occupation*religion
+glm_occupation3 <- svyglm(experienced_fistula ~ age_sex + distance + number_birth +
+                       religion + wealth + education + occupation + 
+                       contraception_use + delivery_place + delivery_professional+
+                       postpartum_care + occupation*religion,
+                     design = svydesign_overall, 
+                     family = quasibinomial())
+
+summary(glm_occupation3)
+
+# Calculate AIC
+AIC(glm_occupation3)
+
+# Calculate confidence intervals
+conf_intervals <- confint(glm_occupation3)
+print(conf_intervals)
+```
+
+
+
+
