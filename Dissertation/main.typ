@@ -24,17 +24,16 @@
 #show figure: set block(breakable: true)
 
 = Introduction
-（Article citation: Ending obstetric fistula by 2030: A call for transformative action and strategic partnerships to address the protracted crisis in West and Central Africa）
-@baba_birth_nodate
+In many parts of Africa, women face severe health challenges, with complications from pregnancy and childbirth being the leading cause of death among women of reproductive age. @noauthor_womens_2024 Among these complications, fistula is a significant health threat related to childbirth. While fistula has been nearly eliminated in developed countries, women in developing nations continue to suffer from this debilitating condition. @noauthor_towards_2022 However, fistula is a preventable condition, and its incidence can be significantly reduced through effective community education and timely medical interventions. @noauthor_obstetric_2005
 
-@weston_obgyn_nodate
+Given the complexity of the fistula issue, this research aims to use quantitative analysis methods to explore the social determinants of fistula among women of reproductive age in West Africa, focusing on the distribution and impact of fistula prevalence and related factors across the region. Specifically, this research will examine the interaction between upstream factors (wealth, education, and occupation) and downstream factors to further reveal how these variables jointly influence the risk of fistula. Additionally, this study will analyze key influencing factors in individual West African countries, comparing their differences to identify critical risk factors unique to each nation. To enhance the practical application of the results, a data visualization dashboard will also be developed. This tool will help policymakers and researchers better understand the key determinants of fistula, supporting the formulation of effective intervention policies for West Africa and its individual countries.
 
-@noauthor_obstetric_2005
+Fistula has devastating consequences for women, not only affecting their physical health but also leading to severe psychological and social repercussions. Women with fistula often experience social isolation, stigmatization, and rejection from their families and communities, which significantly diminishes their quality of life. @baba_birth_nodate In addition to physical pain and incontinence, fistula patients frequently suffer from depression and mental health issues, as studies in Kenya have shown. @weston_obgyn_nodate These combined effects stress the urgency of addressing fistula as both a medical and social issue, particularly in low-resource settings like West Africa.
 
-@noauthor_womens_2024
+Although a large number of studies have explored the risk factors for fistula, there are still limited systematic analyses in West Africa. This research deeply analyzed the determinants of fistula in West African countries and revealed the impact of the interaction of upstream and downstream factors on fistula risk. It not only expanded the understanding of fistula risk factors, but also compared the differences in key factors among countries, providing theoretical support for more targeted intervention measures in the future. Additionally, by identifying the major social determinants of fistula in West Africa and developing a data visualization dashboard, this research offers policymakers more targeted intervention strategies. The dashboard provides a clearer understanding of the factors contributing to the prevalence of fistula, helping decision-makers implement more effective policies adapted to the needs of specific regions.
 
 == Research Objectives
-The specific research objectives are as follows:
+This study not only highlights the key social determinants of fistula, but also provides tools for more targeted interventions. The specific research objectives are as follows:
 
 1. Identify regional gaps in the determinants of fistula in West Africa. Understand
   the special circumstances of fistula in various areas through analyzing the
@@ -54,26 +53,19 @@ The specific research objectives are as follows:
   determinants of fistula in women of reproductive age in West Africa, supporting
   the implementation of appropriate policies for different areas.
 
+== Structure of the Research
+This research is organized into 7 chapters. Chapter 1 introduces background of the study and the research objectives. Chapter 2 provides a review of relevant literature on fistula and research gaps. Chapter 3 describes the research methodology, including data sources and analysis techniques. Chapter 4 focuses on data visualization, showcasing the dashboard developed for this research. Chapter 5 presents the results of the analyses, including descriptive, bivariate, and multivariate findings. Chapter 6 discusses the key findings, research contributions, policy suggestions, limitations, and future research directions. Finally, Chapter 7 concludes the study.
+
 = Literature Review
-（Transition sentence, linking the introduction and the literature review）
-
-@capes_obstetric_nodate
-
-@khisa_understanding_2017
+The devastating consequences of fistula, both physically and socially, are well-documented, as affected women often face significant stigma, social isolation, and economic challenges. Addressing these issues requires a multifaceted approach that focuses on treatment. @capes_obstetric_nodate @khisa_understanding_2017 With this in mind, the following section reviews existing literature on the various determinants of fistula prevalence and the research gaps that this research aims to address.
 
 == Definition of Key Terms
 === Fistula
+Fistula is an abnormal connection or passage that forms between two organs or vessels that do not normally connect @medlineplus_hemoglobin_2024. In the context of obstetric complications, obstetric fistula refers to an abnormal opening between the vagina and the bladder (vesicovaginal fistula) or the rectum (rectovaginal fistula), which can lead to the leakage of urine or stool. This condition is often caused by prolonged obstructed labor without timely medical intervention, resulting in tissue damage due to prolonged pressure during childbirth @cook_obstetric_2004.
 
-Fistula is an abnormal connection between two body parts.
-@medlineplus_hemoglobin_2024 When a woman has a fistula, a tube forms between the
-vagina and the bladder or rectum that causes leakage of urine or
-stool.@cook_obstetric_2004 Common types of fistulas in women are obstetric
-fistulas, vesicovaginal fistulas, and rectovaginal fistulas. Obstetrical fistula
-is the most common, accounting for 79% to 100%, followed by rectovaginal fistula
-(1% to 8%) and vesicovaginal with rectovaginal fistula (1% to 23%).
-@tebeu_risk_2012 Due to the fact that it is impossible to identify the specific
-kind of fistula that the women had in the dataset, fistula was considered
-broadly in this research.
+Common types of fistulas in women are obstetric fistulas, vesicovaginal fistulas, and rectovaginal fistulas. Obstetrical fistula is the most common, accounting for 79% to 100%, followed by rectovaginal fistula (1% to 8%) and vesicovaginal with rectovaginal fistula (1% to 23%) @tebeu_risk_2012.
+
+Due to the structure of the DHS dataset, it is not possible to distinguish between the specific types of fistula experienced by women. Therefore, in this research, fistula is broadly considered as any experience of continuous leakage of urine or stool, as indicated by the DHS survey question: Have you ever experienced a problem of urine or stool leakage from the vagina?
 
 === West Africa
 
@@ -90,33 +82,18 @@ Africa.
 
 === Women of Reproductive Age
 
-Women of reproductive age range from 15 to 49 years. @who_family_2024
-Following this standard, this research explored the factors related to fistula
-in West African women of childbearing age.
+According to the World Health Organization, women of reproductive age range from 15 to 49 years. @who_family_2024 Following this standard, this research explored the factors related to fistula in West African women of childbearing age.
 
 == Theoretical Framework
 
-After clarifying the concepts of fistula, West Africa, and women of childbearing
-age, it is necessary to explore the factors influencing fistula in West African
-women of reproductive age. As a health problem, in order to better understand
-the relevant factors at various levels, social determinants of health are chosen
-as the starting point, and then a specific analysis will be conducted through a
-comprehensive framework of health factors.
+After clarifying the concepts of fistula, West Africa, and women of childbearing age, it is necessary to explore the factors influencing fistula in West African women of reproductive age. As a health problem, in order to better understand the relevant factors at various levels, social determinants of health are chosen as the starting point, and then a specific analysis will be conducted through a comprehensive framework of health factors.
 
-Social determinants of health (SDH) are non-medical factors that have an impact
-on health outcomes, comprising 30%-55% of them. These aspects mostly involve
-economics, society, personal life, and access to medical care. @marmot_who_2012
+Social determinants of health (SDH) are non-medical factors that have an impact on health outcomes. These determinants extend beyond individual behavior, encompassing broader economic, social, and structural elements such as wealth, education, and access to healthcare @marmot_who_2012. While personal health behaviors are essential, a more comprehensive approach that addresses structural determinants like economic status, cultural norms, healthcare systems, and social institutions is also crucial @navarro_what_2009. Fistula, as a health issue affecting women, is deeply shaped by these social and economic factors, aligning closely with the SDH model @den_hollander_obstetric_2020. Based on this framework, this study focuses on four dimensions: personal and family background, family planning and sexual health (individual-level factors), as well as economic and social status and medical services and health (structural-level factors), to analyze the determinants of fistula among women of reproductive age in West Africa."
+
 In order to have a more comprehensive understanding of the factors affecting
-fistula, these levels will be divided into upstream and downstream factors.
-Health outcomes are jointly influenced by a series of upstream and downstream
-factors. The upstream social determinants of health are more fundamental causal
-parts that can deal with health inequity from its root. Economic and societal
-variables influence living conditions. The lower the socioeconomic class, the
-worse the health. Personal conduct, family planning, and access to medical care
-are downstream factors that have a direct impact on health outcomes under the
-influence of upstream factors. @braveman_social_2011 @marmot_health_2010
-According to the SDH theory and the upstream and downstream framework of health,
-the theoretical framework of this study is as follows:
+fistula, these determinants are classified into upstream and downstream categories. Health outcomes are jointly influenced by a series of upstream and downstream factors. Upstream factors are fundamental determinants that address health inequities at their root. Economic and societal variables influence living conditions. The lower the socioeconomic class, the worse the health @braveman_social_2011 @marmot_health_2010. Economic and social status (wealth, education, and occupation) are considered upstream factors, which not only directly affect the risk of fistula but also indirectly influence it through downstream factors. For example, women with limited economic resources often have restricted access to medical services @deribe_measuring_2020. In contrast, women with higher levels of education are more likely to seek postpartum care, reducing their risk of fistula. Similarly, employed women tend to have better economic conditions and higher awareness, making them more likely to access healthcare services @alie_counting_2021. On the other hand, downstream factors directly influence the risk of fistula but are often shaped by upstream social determinants. Personal behavior, family planning, and access to medical care are key downstream factors that directly affect fistula risk. For instance, postpartum care is a crucial factor in preventing fistula, and it is influenced by upstream factors like education and wealth @deribe_measuring_2020.
+
+According to the SDH theory and the upstream and downstream framework of health, the theoretical framework of this research is as follows:
 #figure(
   image("理论框架.svg", width: 80%),
   caption: [Theoretical Framework of Social Determinants of Fistula],
@@ -125,311 +102,105 @@ the theoretical framework of this study is as follows:
 == Related Factors
 
 Based on the theoretical framework, the factors affecting fistula will be
-investigated from four aspects.
+investigated from the upstream and downstream levels.
 
-=== Economic and Social Status
+=== Upstream Factors
 
 Wealth
 
 The Wealth Index is a composite measure that reflects the cumulative living standard of a household, calculated through data on asset ownership, housing characteristics, and access to services. It categorizes households into five wealth quintiles, allowing for the analysis of economic disparities and their impact on health outcomes. @dhs_program_wealth
-Wealth, as an economic indicator, influences fistula. A study on the
-determinants of obstetric fistula in Ethiopia discovered that wealth
-significantly affects the incidence of obstetric fistula.
-@andargie_determinants_2017 This is because poverty reduces access to health
-services and accessibility to health care, which in turn increases the risk of
-disease. @deribe_measuring_2020 As a result, economic disparity may lead to
-differences in the risk of disease and cause health imbalances.
+Wealth, as an economic indicator, has a significant impact on the risk of obstetric fistula. However, research shows that higher wealth groups are not always avoid the fistula risk. For example, in a study conducted in Ethiopia, the prevalence of obstetric fistula was higher among wealthier groups (26.3%) compared to poorer groups (13.2%). @andargie_determinants_2017 In West Africa's poorer regions, the situation is different. Due to limited financial resources, many women face difficulties accessing necessary medical services, leading to persistently high rates of obstetric fistula. @deribe_measuring_2020 @nathan_obstetric_2009 Wealth influences the accessibility of healthcare services, thus impacting the risk of fistula in different regions, and this impact may vary significantly across regions.
 
 Education
 
-Education level is one of the factors. The uneducated women in Ethiopia have the
-highest incidence rate. @andargie_determinants_2017 An analysis of 14 African
-countries found that educated women have a significantly lower risk of fistula.
-@alie_counting_2021 It is due to more educated women have better access to
-healthcare facilities, which contributes to minimize the possibility of fistula.
-@rettig_female_2020 More educated women are more likely to recognize fistula and
-seek treatment to avoid the disease.
+Education level is one of the factors. The uneducated women in Ethiopia have the highest incidence rate. @andargie_determinants_2017 This trend is consistent across West Africa, where women with lower levels of education also face higher risks. For example, an analysis of 14 African countries, including several in West Africa, found that educated women have a significantly lower risk of fistula.
+@alie_counting_2021 It is due to more educated women have better access to healthcare facilities and being more likely to recognize fistula and seek timely treatment, which minimizes the possibility of fistula.
+@rettig_female_2020 
 
 Occupation
 
-Another factor influencing fistula is employment status. In Ethiopia, unemployed
-women have higher chance of suffering from fistula. @andargie_determinants_2017
-Furthermore, a research in Kenya discovered that unemployed women with fistulas
-were more likely feel depression. This demonstrates how occupation influences
-the prevalence of fistula in women. @weston_obgyn_nodate These findings
-illustrate that employment status has an important effect on women's physical
-and psychological wellbeing. Employment can increase income, increasing the
-probability of receiving health care and lowering the risk of sickness.
+In this study, the variable "occupation", derived from the DHS dataset, is used to represent employment status. Another factor influencing fistula is employment status. In Ethiopia, unemployed women have higher chance of suffering from fistula. @andargie_determinants_2017
+Furthermore, a research in Kenya discovered that unemployed women with fistulas were more likely feel depression. This demonstrates how unemployment influences the prevalence of fistula in women. @weston_obgyn_nodate Similarly, in West Africa, employment status plays a crucial role in determining fistula risk. Women who are employed in West African countries have a significantly lower risk of developing fistula, as employment provides them with better financial resources and access to healthcare services. @alie_counting_2021 This highlights the importance of employment not only in reducing the physical risk of fistula but also in improving women's overall quality of life.
 
-=== Personal and Family Background
+=== Downstream Factors
+==== Personal and Family Background
 
 Age
 
-Age is also a factor. Obstetric fistula is primarily caused by difficult
-delivery. Due to inadequate pelvic development in teenagers, the size of the
-fetal head and the maternal pelvis may not match, leading to Obstructed labour.
-@noauthor_obstetric_2005 According to research, adolescent pregnant women are
-more likely to suffer from fistula. @tebeu_risk_2012 Early pregnancy may be
-linked to poor education levels and a lack of sex education.
+Age is also a factor. According to research, adolescent pregnant women are more likely to suffer from fistula. @tebeu_risk_2012 This is because fistula is primarily caused by difficult delivery. Due to inadequate pelvic development in teenagers, the size of the fetal head and the maternal pelvis may not match, leading to Obstructed labour.
+@noauthor_obstetric_2005  Early pregnancy may be linked to poor education levels and a lack of sex education. In West Africa, particularly in Niger, where early marriage and early pregnancy are widespread, fistula is extremely common. @ouedraogo_obstetric_2018
 
 Religion
 
-Religion emerged as a confounding variable in a study conducted in Sub-Saharan
-Africa. @maheu-giroux_risk_2016 Because in rural communities, religious beliefs
-play an important role in women's experience with fistula.
-@gatwiri_better_2017 Different religions have different attitudes on illnesses
-such as fistula, which can prevent women from seeking medical care in a timely
-manner. For example, in Nigeria, religious people are more likely to prefer
-spiritual treatments than medical care. @oluwabamide_assessment_2011 This may
-lead to delays in care before and after childbirth, increasing the risk of
-fistula.
+Religion emerged as a confounding variable in a study conducted in Sub-Saharan Africa. @maheu-giroux_risk_2016 In rural communities, religious beliefs play an important role in women's experience with fistula. @gatwiri_better_2017 Different religions have different attitudes on illnesses such as fistula, which can prevent women from seeking medical care in a timely manner. For example, in Nigeria, a country in West Africa, religious people are more likely to prefer spiritual treatments than medical care. @oluwabamide_assessment_2011 This may lead to delays in care before and after childbirth, increasing the risk of fistula.
 
 Residence
 
-Residence is a significant factor influencing fistula incidence. In Ethiopia, a
-2005 study found that rural women had a higher prevalence of fistula than urban
-women. @andargie_determinants_2017 Similarly, statistical analysis from 2016
-showed that rural women were more likely to have fistula than urban residents.
-@gedefaw_estimating_2021 A multi-level investigation of 14 African countries
-also found that urban women had a lower risk of fistula than rural women.
-@alie_counting_2021 However, in another African study, urban women had a higher
-prevalence. This could be owing to easier access to care in cities, which may
-encourage more patients to relocate. @maheu-giroux_prevalence_2015 These
-findings indicate that the impact of residence on fistula may differ by
-geography. When there are less medical services in rural regions, the risk of
-fistula increases, and cities may acquire more fistula cases from surrounding
-areas due to the accessibility of medical facilities. It is necessary to
-consider the residence factor in a local context.
+Residence is a significant factor influencing fistula incidence. In Ethiopia, rural women had a higher prevalence of fistula than urban women. @andargie_determinants_2017 @gedefaw_estimating_2021 Similar trends have been observed in other regions of Africa, including West Africa. Some studies involving West African countries have found that women in urban areas have a lower risk of fistula than women in rural areas. @alie_counting_2021 However, some studies have found that urban women had a higher prevalence. This could be owing to easier access to care in cities, which may encourage more patients to relocate. @maheu-giroux_prevalence_2015 These findings indicate that the impact of residence on fistula may differ by geography. 
 
 Height and Weight
 
-Height and weight are additional variables that could influence a fistula. The
-body mass index (BMI) can be computed using weight and height. Obese Ethiopian
-women with a BMI above 30 are at a higher risk of developing obstetric fistulas.
-@andargie_determinants_2017 Being overweight can increase the risk of obstetric
-fistula, which is the main cause of obstetric fistula.
+Height and weight are additional variables that could influence a fistula. For example, research from Ethiopia has shown that Obese women with a body mass index (BMI) above 30 are at a higher risk of developing obstetric fistulas. @andargie_determinants_2017 BMI can be computed using weight and height. Although these variables are relevant, they are not included in the final analysis of this research due to a high proportion of missing data.
 
-=== Medical Services and Health
+==== Medical Services and Health
 
 Postpartum Care
 
-One of the factors is postpartum care. Women's education level has an impact on
-their usage of health care, according to a study conducted across 14 African
-nations. More attention is paid to health services by those with higher
-education degrees. @alie_counting_2021 In addition, a further study revealed
-that women who are economically independent are more likely to have access to
-healthcare services. Postpartum care is a health service, which can effectively
-reduce the incidence of vaginal fistula. @deribe_measuring_2020 Postpartum care
-is an important part of protecting maternal health. Women can prevent and detect
-gynecological problems in time through professional care. This can reduce the
-risk of fistula.
+Postpartum care plays a direct role in reducing the risk of fistula by helping women detect and address gynecological issues early. However, access to postpartum care is influenced by factors such as education and wealth. For instance, a study across 14 African nations, including those in West Africa, found that women with higher levels of education are more likely to seek postpartum care, which consequently lowers their risk of developing fistula. @alie_counting_2021 Similarly, wealthy women are more likely to have access to healthcare services, further lowering their risk of fistula. @deribe_measuring_2020
 
 Place of Delivery
 
-The place of delivery is also essential. In Ethiopia, women who give birth at
-home have a much higher incidence of fistula than those who give birth in health
-facilities or other places. @andargie_determinants_2017 Giving birth in a
-hospital enables for early diagnosis and treatment. Due to a lack of awareness
-about fistula, giving birth at home or in other places without trained
-professionals may be unable to identify the disease. This will lead to a delay
-in therapy.
+The place of delivery is also essential. In Ethiopia, women who give birth at home have a much higher incidence of fistula than those who give birth in health facilities or other places. @andargie_determinants_2017 Delivering in a hospital enables for early diagnosis and treatment. In Nigeria, a West African country, most obstetric fistula patients delivered at home with unskilled attendants, which significantly increases the risk of fistula. @ijaiya_vesicovaginal_2010 
 
 Distance
 
-Distance to health facilities is a key factor affecting the risk of fistula. A
-study using data from the 2016 Ethiopian Demographic and Health Survey indicated
-that women who live distant from health facilities face a higher risk of fistula
-due to lack of timely access to necessary medical interventions.
-@gedefaw_estimating_2021 A study on maternal mortality in 8 West African
-countries showed that maternal referral service utilization in remote areas was
-low, which exacerbated the risk of childbirth. @ronsmans_maternal_2003 These
-findings demonstrate that long distances and inconvenient transportation may
-cause pregnant women to have prolonged labor and increase the risk of fistula.
-@tebeu_risk_2012 Being closer to health facilities makes it easier to receive
-professional delivery and postpartum care, which effectively prevents the
-occurrence of fistula.
+Distance to health facilities is a key factor affecting the risk of fistula. A study using data from the 2016 Ethiopian Demographic and Health Survey indicated that women who live distant from health facilities face a higher risk of fistula due to lack of timely access to necessary medical interventions. @gedefaw_estimating_2021 A study on maternal mortality in 8 West African countries showed that maternal referral service utilization in remote areas was low, which exacerbated the risk of childbirth. @ronsmans_maternal_2003 These findings demonstrate that long distances and inconvenient transportation may
+cause pregnant women to have prolonged labor and increase the risk of fistula. @tebeu_risk_2012 In contrast, being closer to health facilities makes it easier to receive professional delivery and postpartum care, which effectively prevents the occurrence of fistula.
 
 Professional Delivery
 
 It is also important to consider whether the delivery was performed
-professionally. Lack of access to safe cesarean sections during hard labor and
-exposure to dangerous birthing methods can make fistulas more prevalent, since
-they have a greater tendency to be at risk of iatrogenic injury.
-@mama_pelvic_2022 Areas with a lack of trained hospital staff and suitable
-surgical options during labor might result in major complications, such as
-fistula.
+professionally. Lack of access to safe cesarean sections during hard labor and exposure to dangerous birthing methods can make fistulas more prevalent, since they have a greater tendency to be at risk of iatrogenic injury. @mama_pelvic_2022 Areas with a lack of trained hospital staff and suitable surgical options during labor might result in major complications, such as fistula. @ijaiya_vesicovaginal_2010
 
-=== Family Planning and Sexual Health
+==== Family Planning and Sexual Health
 Contraception Use
 
-Not using contraception is a risk factor for fistula. Contraception can reduce
-pregnancy-related health risks for women, particularly adolescent girls.
-@who_family_2024 According to a 2016 study in Ethiopia, women who did not
-use contraception had a 3.43 times higher risk of getting a fistula than those
-who did. @gedefaw_estimating_2021 Reducing the possibility of pregnancy
-decreases the probability of fistula.
+Not using contraception is a risk factor for fistula. Contraception can reduce pregnancy-related health risks for women, particularly adolescent girls. @who_family_2024 According to a 2016 study in Ethiopia, women who did not use contraception had a 3.43 times higher risk of getting a fistula than those who did. @gedefaw_estimating_2021 Similarly, in West African countries like Nigeria, many women didn't use contraception, which increased the risk of fistula.
 
 Age of First Sexual Intercourse
 
-The age of first sexual intercourse is also associated with the occurrence of
-fistulas. Having first sexual intercourse at a younger age is easier to result
-in a fistula. @maheu-giroux_risk_2016 Being younger means that the pelvis may
-not be fully developed, increasing the chance of a fistula when one is become
-pregnant. Delaying the age of first sexual intercourse and using proper
-contraception are excellent approaches to lower the risk.
+A study covering West African countries found that the age of first sexual intercourse is also associated with the occurrence of fistulas. Having first sexual intercourse at a younger age is easier to result in a fistula. @maheu-giroux_risk_2016 Being younger means that the pelvis may not be fully developed, increasing the chance of a fistula when one is become pregnant. Delaying the age of first sexual intercourse and using proper contraception are excellent approaches to lower the risk.
 
 Total Births
 
-The number of births should also be considered. In a Nigerian investigation,
-primiparas proved to be more fragile and thus more prone to disease.
-@ijaiya_vesicovaginal_2010 Furthermore, limiting the total number of births
-through family planning can effectively lower the chance of pregnancy causing
-fistula. @gedefaw_estimating_2021 It means that limiting the number of
-pregnancies, particularly in high-risk women, can reduce the chance of getting
-fistula.
+The number of births should also be considered. In a study conducted in Nigeria, a West African country, primiparas proved to be more fragile and thus more prone to fistula. @ijaiya_vesicovaginal_2010 Furthermore, limiting the total number of births through family planning can effectively lower the chance of pregnancy causing fistula. @gedefaw_estimating_2021 It means that limiting the number of pregnancies, particularly in high-risk women, can reduce the chance of getting fistula.
 
 Sexual Violence
 
-The final factor is sexual violence. Sexual violence is not a common cause of
-fistula. However, more than one in five women in conflict zones report having
-fistula caused by sexual violence. @maheu-giroux_prevalence_2015 A research in
-sub-Saharan Africa have also shown that sexual violence significantly affects
-vaginal fistula. @maheu-giroux_risk_2016 Moreover, sexual violence was a major
-indicator of traumatic fistula in Rwanda and Malawi. @peterman_incontinence_2009
-While sexual violence is not common, it can be a substantial risk factor for
-fistula in certain areas.
-
-== Fistula in West Africa
-
-Obstetric fistula is a public health issue in West Africa. The incidence of
-fistula is high in West Africa, especially in poor areas. @nathan_obstetric_2009
-Women without proper medical resources are more prone to get fistulas. Although
-the incidence varies by region in West Africa, the prevalence of obstetric
-fistula in most West African countries is significantly higher than the global
-average. For example, Nigeria, a country with a good economic level in West
-Africa, has a significantly higher incidence of vesicovaginal fistula,
-especially in the northern part of the country, where women become more easy to
-experience a fistula due to prolonged labor. @ijaiya_vesicovaginal_2010
-
-The main causes of fistula in West Africa are prolonged labor, unskilled
-delivery, caesarean sections, and birth customs related to early marriage and
-early childbearing. These factors are further exacerbated by poverty, ignorance
-and culturally embedded traditional attitudes. @ijaiya_vesicovaginal_2010 For
-example, many women are unable to access quality care due to financial
-limitations and cultural restrictions, resulting in serious complications during
-childbirth and ultimately fistula formation. @ronsmans_maternal_2003
-
-Fistulas have an impact on not just physical health, but also psychological and
-social well-being. Fistula patients in West Africa may face shame, divorce, and
-social exclusion. For example, in Mali and Niger, women with fistula frequently
-face divorce, polygamous husbands remarrying and husbands disappearing.
-@ouedraogo_obstetric_2018
-
-Fistula repair surgery has a high success rate in some regions of West Africa,
-but overall treatment remains challenging. In Niger, where early marriage and
-pregnancy are widespread, obstetric fistula is extremely common. Repair success
-rates are high for first-time patients, but much lower for complex situations
-where many procedures have failed. @ouedraogo_obstetric_2018 This indicates that
-treating complex cases remains difficult. Additionally, access to treatment is
-restricted, with many patients unable to receive prompt treatment due to
-financial barriers.
-
-In summary, the problem of obstetric fistula in West Africa must be treated
-seriously. In addition to improving the quality of healthcare, the impact of
-socioeconomic, cultural and personal concepts on women's health should also be
-positively guided in order to reduce the prevalence of fistula.
+The final factor is sexual violence. Sexual violence is not a common cause of fistula. However, more than one in five women in conflict zones report having fistula caused by sexual violence.  @maheu-giroux_prevalence_2015 A research in sub-Saharan Africa have also shown that sexual violence significantly affects vaginal fistula. @maheu-giroux_risk_2016 Moreover, sexual violence was a major indicator of traumatic fistula in Rwanda and Malawi. @peterman_incontinence_2009
+While due to the limited data available on this issue in the DHS dataset, sexual violence is not included in the final analysis of this study.
 
 == Research Gaps
 
 === Gaps Found in Current Research
 
-Obstetric fistula is still not a priority in many resource-poor countries,
-especially West Africa. This is reflected in the lack of data on fistula
-prevalence in some areas. @cowgill_obstetric_2015 In addition, the reliability
-of some existing data must be enhanced. @noauthor_research_2018 This has
-inhibited some research on local factors influencing fistula, and thus prevented
-targeted policy recommendations from being made.
+Obstetric fistula is still not a priority in many resource-poor countries, especially West Africa. This is reflected in the lack of data on fistula prevalence in some areas. @cowgill_obstetric_2015 In addition, the reliability of some existing data must be enhanced. @noauthor_research_2018 This has inhibited some research on local factors influencing fistula, and thus prevented targeted policy recommendations from being made.
 
-While current research has investigated various features of fistula, there is
-missing of data on specific fistula forms. @tweneboah_awareness_2023 There is
-also a lack of scientific study on fistula, including a lack of prevalence
-studies and a lack of research on barriers to fistula treatment.
-@baker_barriers_nodate @creanga_prevention_2007 This research also lacks data
-to identify specific categories. This issue restricts study into the factors
-that influence each fistula type and does not provide specific recommendations
-for different fistula types.
+While current research has investigated various features of fistula, there is missing of data on specific fistula forms. @tweneboah_awareness_2023 There is also a lack of scientific study on fistula, including a lack of prevalence studies and a lack of research on barriers to fistula treatment. @baker_barriers_nodate @creanga_prevention_2007 This research also lacks data to identify specific categories. This issue restricts study into the factors
+that influence each fistula type and does not provide specific recommendations for different fistula types.
 
-In addition, while there have been studies on factors influencing fistula, such
-as the economy and education, there has been inadequate study on how these
-factors combine. Furthermore, there is a dearth of research on the impact of
-cultural practices and psychological aspects. @elkins_fistula_1997 This research
-will involve religious factors as a supplement to the study on cultural customs.
+In addition, while there have been studies on factors influencing fistula, such as the economy and education, there has been inadequate study on how these factors combine. Furthermore, there is a dearth of research on the impact of cultural practices and psychological aspects. @elkins_fistula_1997 This research will involve religious factors as a supplement to the study on cultural customs.
 
 === Research Gaps in the West African Context
 
 From the 19 studies chosen for risk factors for fistula, 15 were from
-Sub-Saharan Africa and four from the Middle East. @tebeu_risk_2012 This reflects
-a lack of studies focused on West Africa. Furthermore, West African countries
-such as Côte d'Ivoire face issues with poor data quality and potential
-underestimate. @noauthor_towards_2022
+Sub-Saharan Africa and four from the Middle East. @tebeu_risk_2012 This reflects a lack of studies focused on West Africa. Furthermore, West African countries such as Côte d'Ivoire face issues with poor data quality and potential underestimate. @noauthor_towards_2022
 
 == Summary
 
-Although current research proves that fistula is a severe problem in Africa, and
-some studies have explored the fistula problem in some West African countries,
-there is a lack of data on the prevalence and influencing factors of fistula in
-West Africa as a whole. By summarizing the relevant elements impacting fistula
-in various regions, the common connected factors are identified in @Table1.
-#figure(
-  caption: "Summary of Relevant Literature on Determining Influencing Factors",
-  table(
-    columns: (auto, auto),
-    align: center,
-    stroke: none,
-    table.hline(),
-    table.header([*Factors*], [*References*]),
-    table.hline(),
-    [Wealth],
-    [@andargie_determinants_2017 @deribe_measuring_2020],
-    [Education],
-    [@andargie_determinants_2017 @alie_counting_2021 @rettig_female_2020],
-    [Occupation],
-    [@andargie_determinants_2017 @weston_obgyn_nodate],
-    [Age],
-    [@noauthor_obstetric_2005 @tebeu_risk_2012],
-    [Religion],
-    [@maheu-giroux_risk_2016 @gatwiri_better_2017 @oluwabamide_assessment_2011],
-    [Residence],
-    [@andargie_determinants_2017 @gedefaw_estimating_2021 @alie_counting_2021 @maheu-giroux_prevalence_2015],
-    [Height and Weight],
-    [@andargie_determinants_2017],
-    [Postpartum Care],
-    [@alie_counting_2021 @deribe_measuring_2020],
-    [Place of Delivery],
-    [@andargie_determinants_2017],
-    [Distance],
-    [@gedefaw_estimating_2021 @ronsmans_maternal_2003 @tebeu_risk_2012],
-    [Professional Delivery],
-    [@mama_pelvic_2022],
-    [Contraception Use],
-    [@who_family_2024 @gedefaw_estimating_2021],
-    [Age of First Sexual Intercourse],
-    [@maheu-giroux_risk_2016],
-    [Total Births],
-    [@ijaiya_vesicovaginal_2010 @gedefaw_estimating_2021],
-    [Sexual Violence],
-    [@maheu-giroux_prevalence_2015 @maheu-giroux_risk_2016 @peterman_incontinence_2009],
-    table.hline(),
-  ),
-) <Table1>
+Although current research proves that fistula is a severe problem in Africa, and some studies have explored the fistula problem in some West African countries, there is a lack of data on the prevalence and influencing factors of fistula in West Africa as a whole. 
 
-This study will analyze the prevalence and regional differences of fistula in
-six West African countries. At the same time, different influencing factors in
-West Africa and specific countries will be explored. Finally, a data dashboard
-will be built to visually represent the research findings. This work contributes
-to the current literature on regional variations in fistula in West Africa and
-provides a dashboard for presenting and analyzing these data. This will allow
-for a more comprehensive understanding of the prevalence and determinants of
+This study will analyze the prevalence and regional differences of fistula in six West African countries. At the same time, different influencing factors in West Africa and specific countries will be explored. And a data dashboard will be built to visually represent the research findings. This work contributes to the current literature on regional variations in fistula in West Africa and provides a dashboard for presenting and analyzing these data. This will allow for a more comprehensive understanding of the prevalence and determinants of
 fistula in West Africa.
 
 = Methodology
@@ -530,9 +301,11 @@ Before data analysis, preprocessing was performed to ensure data integrity. The 
 
 == Analytical Methods
 
+This research uses a comprehensive approach, incorporating multiple statistical methods to investigate the determinants of fistula in West Africa. First, descriptive statistics provide an overview of the key variables. Then, bivariate analysis is used to explore associations between independent variables and the prevalence of fistula. Finally, survey-weighted generalized linear models (svyglm) are applied to more precisely identify factors influencing fistula prevalence across the region.
+
 === Descriptive Statistics
 
-  Descriptive statistics can grasp the fundamental properties and distribution of data, establishing the groundwork for future study. First, calculate descriptive statistics for each variable in this research, including the mean, quartile, standard error, maximum, and minimum values. After that, category the variables by country and analyze differences in distribution between them. This provides an adequate understanding of each variable's central tendency and dispersion. Second, calculate the prevalence of each variable in West Africa. And creat a horizontal categorized bar chart to display the fistula prevalence of each factor in different categories. It assists in better understanding the impact of each factor on fistula. Next, compute the prevalence of each variable in West Africa by country. This time, use facet maps and heat maps to compare the relationship between various factors and fistula prevalence in different countries. Then perform feature analysis and visualization.Explore West Africa and each country from the following four perspectives: individual and family background, economic and social status, access to health care, and family planning and sexual health. Use charts to illustrate the correlation between the relevant factors and prevalence. Feature analysis provides key insights into the causes and influencing factors of fistula in West Africa. Finally, do multiple correspondence analysis (MCA) to investigate the relationships between the key variables in West Africa and each country. This reveals the variable combination patterns that are unique to each country and compare the differences between different countries.
+  Descriptive statistics help to grasp the basic characteristics and distribution of data, laying the foundation for subsequent research. First, all variables need to be converted into categorical variables. Secondly, the frequency of each variable is calculated for West Africa as a whole and for each country. And a bar chart is used to visualize the distribution characteristics of West African women under different variables. After that, the prevalence of West Africa and each country under different variable classifications is calculated respectively. These results are also presented in bar charts to help understand the impact of various factors on fistula. Finally, a multiple correspondence analysis (MCA) is performed on the overall data of West Africa to explore the relationship between key variables that affect fistula in West African women. The analysis results can evaluate the contribution of different variables to the risk of fistula, thereby identifying the main influencing factors in West Africa.  
 
 === Bivariate Analysis
 
@@ -548,7 +321,9 @@ Before data analysis, preprocessing was performed to ensure data integrity. The 
 
 2. Basic Model Fitting
   
-  Use the weighted generalized linear model (svyglm) for analysis after checking that there is no multicollinearity issue. This is because the data set has a complex sampling design and the target variable is a binary variable (experienced_fistula). Svyglm is an extension of the generalized linear model (GLM) that considers complicated sampling designs. It can adjust the model estimation by considering sample weights, stratification by country, and clustering within the data to make the results more accurate and representative of the population. The significance of each variable is determined by its p-value, which helps to see if the observed relationships are statistically meaningful. Additionally, 95% confidence intervals are calculated for each coefficient to show a range that likely includes the true effect size, giving more insight into the accuracy and reliability of the estimates. The basic model formula is as follows:
+  Use the survey-weighted generalized linear model (svyglm) for analysis after checking that there is no multicollinearity issue. This is because the data set has a complex sampling design and the target variable is a binary variable (experienced_fistula). Svyglm is an extension of the generalized linear model (GLM) that considers complicated sampling designs. It can adjust the model estimation by considering sample weights, stratification by country, and clustering within the data to make the results more accurate and representative of the population. In the analysis of the entire West African region, stratification by country ('strata') is used to account for differences in sampling design across countries, ensuring the sampling design is properly considered at a regional level. 
+  
+  The significance of each variable is determined by its p-value, which helps to see if the observed relationships are statistically meaningful. Additionally, 95% confidence intervals are calculated for each coefficient to show a range that likely includes the true effect size, giving more insight into the accuracy and reliability of the estimates. The basic model formula is as follows:
 
   $ "logit(P(Y=1))" = beta_0+beta_1 X_1+beta_2 X_2+ dots + beta_k X_k $
 
@@ -620,14 +395,6 @@ Before data analysis, preprocessing was performed to ensure data integrity. The 
   Given the large number of variables, this research uses a stepwise addition approach to examine the interaction between upstream characteristics (wealth, education, occupation) and downstream factors.
 
   The process involves adding only one interaction term at a time to the final model. These interaction terms consist of upstream and downstream factors. For example, an interaction term like wealth*age_sex is added to the final model, and then the svyglm model is run to evaluate the significance of the interaction. In subsequent analyses, different downstream factors in the final model are tested by replacing age_sex with another variable, and the model is rerun to assess the significance of the new interaction term. If the interaction term is significant (p-value < 0.05) and results in a lower AIC value compared to the final model without the interaction term, this indicates a meaningful interaction between the upstream and downstream factors.
-
-== Summary
-
-In this research, the weighted generalized linear model (svyglm) is used primarily to identify major factors influencing fistula in West Africa and other countries. The svyglm model can effectively identify factors that are significantly correlated with the target variable. Additionally, it facilitates the investigation of interactions between upstream factors (wealth, education, and occupation) and downstream factors by gradually introducing interaction terms.
-
-Although the svyglm model cannot automatically capture variable interactions, this research makes up for this limitation by gradually adding interaction terms, enabling a more comprehensive analysis of the complicated relationship between variables.
-
-This research method can not only identify the impact of individual variables, but also deeply explore the joint effects of upstream and downstream factors through the analysis of interactions. Ultimately, this comprehensive methodology effectively identify the key factors that significantly influence the occurrence of fistula in West Africa and other countries.
 
 = Data Visualization
 (Dashboard)
@@ -977,7 +744,7 @@ Fistula prevention should also be a priority, especially in regions such as West
 
 In addition, future research should also focus on solving the common data imbalance problem in fistula research. Since fistula cases account for a very small proportion of the data, research should explore more appropriate methods to handle imbalanced datasets to improve the performance of the model and the reliability of the results.
 
-== Conclusions
+= Conclusions
 This research offers important insights into the prevalence and determinants of fistula in women of reproductive age across West Africa, emphasizing the critical role of both upstream and downstream factors. The findings reveal that while wealthier women surprisingly face higher fistula risks, education remains a key protective factor, with uneducated women experiencing the highest prevalence of fistula. Furthermore, the research highlights significant national variations, stressing the need for targeted interventions in different regions.
 
 A notable contribution of this research is the development of a data visualization dashboard, which allows for more effective exploration and understanding of fistula prevalence across the region. This tool enhances both research and policy-making by making the data more accessible and actionable.
