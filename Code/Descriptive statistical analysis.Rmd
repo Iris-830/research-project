@@ -1,0 +1,387 @@
+```{r}
+# --------------------------------------------------------
+# clear the environment var area
+rm(list = ls())
+# clear all plots
+graphics.off()
+# clear the console area
+cat("\014")
+```
+
+1.  Analyzing the Social Determinants of Fistula
+
+    1.1 Data Preprocessing
+
+```{r}
+# --------------------------------------------------------
+library(haven)
+library(dplyr)
+library(ggplot2)
+# read sav file
+data.origin = read_sav('/Users/qimiao/Desktop/7.28/Data.sav')
+
+# --------------------------------------------------------
+# Delete missing values in target rows
+
+data_clean <- data.origin %>% filter(!is.na(experienced_fistula))
+
+# --------------------------------------------------------
+# Cross-analysis using xtabs
+cross_tab <- xtabs(~ country + experienced_fistula, data = data_clean)
+print(cross_tab)
+
+# If fewer than 50 people answered "Yes" to experienced_fistula for a particular country, the data may not be statistically representative and may not provide enough information for reliable analysis.
+# Therefore, removing these countries.
+
+# Removing BurkinaFaso, Gambia and Niger
+data_clean <- data_clean %>%
+  filter(!(country %in% c("BurkinaFaso", "Gambia", "Niger")))
+
+# --------------------------------------------------------
+#See the missing value
+library(naniar)
+gg_miss_var(data_clean)
+
+# --------------------------------------------------------
+# Selecting specific variables
+selected_columns <- c(
+  "experienced_fistula",
+  "country",
+  "V005",
+  "age",
+  "distance",
+  "age_sex",
+  "number_birth",
+  "religion",
+  "residence",
+  "wealth",
+  "education",
+  "occupation",
+  "contraception_use",
+  "delivery_place",
+  "delivery_professional",
+  "postpartum_care"
+)
+
+# Create a new data frame
+data_selected <- data_clean[, selected_columns]
+
+# Delete rows with missing values
+data1 <- na.omit(data_selected)
+
+# View the dataset
+head(data1)
+
+# View the structure of the dataset
+str(data1)
+
+```
+
+```{r}
+data1$religion <- factor(data1$religion)
+data1$wealth <- factor(data1$wealth)
+data1$education <- factor(data1$education)
+data1$occupation <- factor(data1$occupation)
+data1$residence <- factor(data1$residence)
+data1$contraception_use <- factor(data1$contraception_use)
+data1$delivery_place <- factor(data1$delivery_place)
+data1$delivery_professional <- factor(data1$delivery_professional)
+data1$postpartum_care <- factor(data1$postpartum_care)
+data1$age <- factor(data1$age)
+data1$age_sex <- factor(data1$age_sex)
+data1$distance <- factor(data1$distance)
+data1$number_birth <- factor(data1$number_birth)
+data1$experienced_fistula <- factor(data1$experienced_fistula)
+```
+
+1.2 Descriptive Statistical Analysis
+```{r}
+# --------------------------------------------------------
+# Processing weight
+library(survey)
+
+# Calculate descriptive statistics
+variables <- c("experienced_fistula", "age", "age_sex", "number_birth", "religion", 
+               "residence", "wealth", "education", "occupation", 
+               "contraception_use", "delivery_place", "distance",
+               "delivery_professional", "postpartum_care")
+
+# DHS weights need to be divided by 1,000,000
+data_design <- data1 %>% mutate(weight = V005 / 1000000)  
+dhs_design <- svydesign(id = ~1, strata = ~country, weights = ~weight, data = data_design)
+
+summary_categorical <- function(dhs_design, variable) {
+  formula <- as.formula(paste("~", variable))
+  freq <- svytable(formula, dhs_design)  # 计算频数
+  prop <- svymean(formula, dhs_design, na.rm = TRUE)  # 计算百分比
+  
+  data.frame(
+    variable = variable,
+    category = names(freq),
+    frequency = as.vector(freq),
+    proportion = 100 * as.vector(prop)  # 转换为百分比
+  )
+}
+
+# Calculating Statistics
+categorical_summary_list <- lapply(variables, function(var) {
+  summary_categorical(dhs_design, var)})
+
+categorical_summary_df <- bind_rows(categorical_summary_list)
+
+print(categorical_summary_df)
+
+# write.csv(categorical_summary_df, "categorical_summary_df.csv", row.names = FALSE)
+
+
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Create a plot showing percentages
+plot_categorical <- function(categorical_summary_df, variable_name) {
+  plot_data <- categorical_summary_df[categorical_summary_df$variable == variable_name, ]
+  
+  ggplot(plot_data, aes(x = category, y = proportion, fill = category)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes(label = sprintf("%.2f%%", proportion)), vjust = -0.5, size = 3) +  # 显示百分比值
+    labs(title = paste("Percentage of", variable_name), x = variable_name, y = "Percentage") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))  # 如果类别标签较长，可以旋转标签
+}
+
+lapply(variables, function(var) {
+  p <- plot_categorical(categorical_summary_df, var)
+})
+```
+
+```{r}
+# Calculate the prevalence of different variables for West Africa
+
+# Define a list of variables (excluding experienced_fistula)
+variables <- c("age", "age_sex", "distance", "number_birth", "religion", "residence", 
+               "wealth", "education", "occupation", "contraception_use", 
+               "delivery_place", "delivery_professional", "postpartum_care")
+
+# Define a function
+calculate_prevalence <- function(dhs_design, variable) {
+  svyby(~experienced_fistula, as.formula(paste("~", variable)), dhs_design, svymean)
+}
+
+# Calculate the prevalence for each variable
+prevalence_list <- lapply(variables, function(var) calculate_prevalence(dhs_design, var))
+names(prevalence_list) <- variables
+
+# Print the result
+for (var in names(prevalence_list)) {
+  print(prevalence_list[[var]])
+}
+
+# save as a CSV
+#for (var in names(prevalence_list)) {
+#  write.csv(prevalence_list[[var]], paste0(var, "_prevalence.csv"), row.names = FALSE)
+#}
+
+
+```
+```{r}
+# Generate a bar chart for each variable
+
+# Convert the result into a data frame
+for (var in names(prevalence_list)) {
+  df <- as.data.frame(prevalence_list[[var]]) 
+  df$variable <- var 
+  
+  # Draw a bar chart
+  p <- ggplot(df, aes_string(x = var, y = "experienced_fistula1", fill = var)) +
+    geom_bar(stat = "identity") +
+    labs(x = var, y = "Prevalence of Fistula", title = paste("Prevalence of Fistula by", var)) +
+    geom_text(aes_string(label = "sprintf('%.2f%%', experienced_fistula1 * 100)"), 
+              vjust = -0.5, size = 3) + 
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+  print(p)
+}
+
+```
+
+```{r}
+# --------------------------------------------------------
+# Feature Analysis
+# West Africa
+# *Crosstab
+# ——Showing the prevalence of fistula under different combinations of characteristics
+
+# 1.Personal and Family Background
+background <- svyby(~ experienced_fistula, ~ age + religion + residence, dhs_design, svymean)
+individual_family <- as.data.frame(background)
+print(individual_family)
+# 2.Economic and Social Status
+economic <- svyby(~ experienced_fistula, ~ wealth + education + occupation, dhs_design, svymean)
+economic_social <- as.data.frame(economic)
+print(economic_social)
+# 3.Medical Services and Health Conditions
+health <- svyby(~ experienced_fistula, ~ postpartum_care + delivery_place + delivery_professional + distance, dhs_design, svymean)
+healthcare_health <- as.data.frame(health)
+print(healthcare_health)
+# 4.Family Planning and Reproductive Health
+reproductive <- svyby(~ experienced_fistula, ~ contraception_use + number_birth + age_sex, dhs_design, svymean)
+family_reproductive <- as.data.frame(reproductive)
+print(family_reproductive)
+
+
+# *Visualization
+# 1.Personal and Family Background
+ggplot(individual_family, aes(x = age, y = experienced_fistula1, fill = factor(religion))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ residence) +
+  labs(title = "Fistula Prevalence by Age, Religion, and Residence", x = "age", y = "prevalence") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+# Add the residence tag
+grid.text("residence", x = 0.45, y = 0.95, gp = gpar(fontsize = 12, fontface = "bold"))
+
+# 2.Economic and Social Status
+ggplot(economic_social, aes(x = wealth, y = experienced_fistula1, fill = factor(occupation))) + geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ education) +
+  labs(title = "Fistula Prevalence by Wealth, Education, and Occupation", x = "wealth", y = "prevalence") +
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = 0.5))
+# Add the education tag
+grid.text("education", x = 0.45, y = 0.95, gp = gpar(fontsize = 12, fontface = "bold"))
+
+# 3.Medical Services and Health Conditions
+ggplot(healthcare_health, aes(x = delivery_place, y = experienced_fistula1, fill = factor(postpartum_care))) +
+  geom_bar(stat = "identity", position = "dodge") +  # 使用堆叠柱状图
+  facet_grid(delivery_professional ~ distance) +
+  labs(title = "Fistula Prevalence by Delivery Place, Postpartum Care, Delivery Professional, and Distance", x = "Delivery Place", y = "Prevalence", fill = "Postpartum Care") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+# Add the distance and delivery professional tag
+grid.text("distance", x = 0.45, y = 0.95, gp = gpar(fontsize = 12, fontface = "bold"))
+grid.text("delivery professional", x = 0.88, y = 0.5, gp = gpar(fontsize = 12, fontface = "bold"), rot = 90)
+
+# 4.Family Planning and Reproductive Health
+ggplot(family_reproductive, aes(x = age_sex, y = experienced_fistula1, fill = factor(number_birth))) + geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~ contraception_use) +
+  labs(title = "Fistula Prevalence by Total Birth, Age at First Sex, and Contraception Use", x = "age at first sex", y = "prevalence") +
+  theme_minimal()+
+  theme(plot.title = element_text(hjust = 0.5))
+# Add the contraception use tag
+grid.text("contraception use", x = 0.45, y = 0.965, gp = gpar(fontsize = 12, fontface = "bold"))
+```
+
+```{r}
+# Multiple Correspondence Analysis (MCA)
+library(FactoMineR)
+library(factoextra)
+library(plotly)
+
+categorical_vars <- c("experienced_fistula", "age", "distance", "age_sex", "religion", "residence", "wealth", "education", "occupation", "contraception_use", "delivery_place", "delivery_professional", "postpartum_care", "number_birth")
+
+
+# Categorical variables are converted to factor types
+data2 <- data1 %>%
+  mutate(across(all_of(categorical_vars), as.factor))
+
+str(data2[categorical_vars])
+
+# West Africa
+# MCA
+mca_result <- MCA(data2[categorical_vars], graph = FALSE)
+
+# MCA Plot
+mca_biplot <- fviz_mca_biplot(mca_result, repel = TRUE, ggtheme = theme_minimal())
+mca_biplot
+# ggsave("mca_biplot.svg", plot = mca_biplot, device = "svg", width = 8, height = 6)
+
+# Variable Contribution
+var_contrib_dim1 <- fviz_contrib(mca_result, choice = "var", axes = 1, top = 10)
+var_contrib_dim2 <- fviz_contrib(mca_result, choice = "var", axes = 2, top = 10) 
+
+# ggsave("var_contrib_dim1.svg", plot = var_contrib_dim1, device = "svg", width = 8, height = 6)
+# ggsave("var_contrib_dim2.svg", plot = var_contrib_dim2, device = "svg", width = 8, height = 6)
+```
+
+```{r}
+# West Africa Counties
+# MCA analysis for each country
+all_vars <- c("experienced_fistula", "age", "distance", "age_sex", "religion", "residence", "wealth", "education", "occupation", "contraception_use", "delivery_place", "delivery_professional", "postpartum_care", "number_birth", "country")
+
+categorical_vars <- c("experienced_fistula", "age", "distance", "age_sex", "religion", "residence", "wealth", "education", "occupation", "contraception_use", "delivery_place", "delivery_professional", "postpartum_care", "number_birth")
+
+# Categorical variables are converted to factor types
+data3 <- data1 %>%
+  mutate(across(all_of(all_vars), as.factor))
+
+# Use split to group by country
+data_split <- split(data3, data3$country)
+
+# MCA analysis for each country
+lapply(names(data_split), function(country_name) {
+  country_data <- data_split[[country_name]]
+  
+  # Select categorical variables
+  mca_data <- country_data %>% select(all_of(categorical_vars))
+  
+  mca_result <- MCA(mca_data, graph = FALSE)
+  
+  # MCA Plot
+  mca_biplot <- fviz_mca_biplot(mca_result, repel = TRUE, ggtheme = theme_minimal()) +
+          ggtitle(paste("MCA Biplot for", country_name))
+  # Variable Contribution
+  var_contrib_1 <- fviz_contrib(mca_result, choice = "var", axes = 1, top = 10) +
+    ggtitle(paste("Variable Contribution - Axis 1 for", country_name))
+  var_contrib_2 <- fviz_contrib(mca_result, choice = "var", axes = 2, top = 10) +
+    ggtitle(paste("Variable Contribution - Axis 2 for", country_name))
+  
+  print(mca_biplot)
+  print(var_contrib_1)
+  print(var_contrib_2)
+})
+```
+
+1.3 Data Analysis
+
+1.3.1 Bivariate Analysis
+
+```{r}
+# Variables that need bivariate analysis
+variables <- c("age", "age_sex", "distance", "number_birth", "religion", "residence", 
+               "wealth", "education", "occupation", "contraception_use", 
+               "delivery_place", "delivery_professional", "postpartum_care")
+
+# Scaling Weights
+data1$V005_scaled <- data1$V005 / 1000000
+
+svydesign_overall <- svydesign(id = ~1, strata = ~country, weights = ~V005_scaled, data = data1)
+# Define a function
+bivariate_analysis <- function(variable, svydesign_overall) {
+  formula <- as.formula(paste("experienced_fistula ~", variable))
+  
+  # svyglm analysis
+  glm_result <- svyglm(formula, design = svydesign_overall, family = quasibinomial())
+  
+  # Chi-square test
+  chisq_result <- svychisq(as.formula(paste("~", variable, "+ experienced_fistula")), design = svydesign_overall)
+  
+  list(glm = summary(glm_result), chisq = chisq_result)
+}
+
+# Perform bivariate analysis on each variable
+bivariate_results <- lapply(variables, function(var) {
+  cat("\n--- Bivariate Analysis:", var, "---\n")
+  result <- bivariate_analysis(var, svydesign_overall)
+  print(result$glm)
+  
+  cat("\nChi-Square Test (svychisq) Result:\n")
+  print(result$chisq)
+  
+  return(result)
+})
+
+```
+
